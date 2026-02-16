@@ -73,16 +73,16 @@ chezmoi diff
 
 | Action                    | Keys                          |
 | ------------------------- | ----------------------------- |
-| Prefix                    | `Ctrl+a`                      |
-| Fuzzy-find project session| `Ctrl+a` then `f`             |
-| Split pane vertically     | `Ctrl+a` then `\|`            |
-| Split pane horizontally   | `Ctrl+a` then `-`             |
-| Move between panes        | `Alt+arrow keys` (no prefix)  |
-| New window (tab)          | `Ctrl+a` then `c`             |
-| Next/prev window          | `Ctrl+a` then `n` / `p`       |
-| Kill pane                 | `Ctrl+a` then `x`             |
-| Kill session              | `Ctrl+a` then `:kill-session` |
-| Detach from session       | `Ctrl+a` then `d`             |
+| Prefix                    | `Ctrl+Space`                      |
+| Fuzzy-find project session| `Ctrl+Space` then `f`             |
+| Split pane vertically     | `Ctrl+Space` then `\|`            |
+| Split pane horizontally   | `Ctrl+Space` then `-`             |
+| Move between panes        | `Alt+arrow keys` (no prefix)      |
+| New window (tab)          | `Ctrl+Space` then `c`             |
+| Next/prev window          | `Ctrl+Space` then `n` / `p`       |
+| Kill pane                 | `Ctrl+Space` then `x`             |
+| Kill session              | `Ctrl+Space` then `:kill-session` |
+| Detach from session       | `Ctrl+Space` then `d`             |
 | List sessions             | `tmux ls`                     |
 
 ## What's Included
