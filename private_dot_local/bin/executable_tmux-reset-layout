@@ -10,7 +10,10 @@ old_windows=$(tmux list-windows -t "$session" -F '#{window_id}')
 nvim_id=$(tmux new-window -t "$session" -n nvim -c "$dir" -P -F '#{window_id}')
 claude_id=$(tmux new-window -t "$session" -n claude -c "$dir" -P -F '#{window_id}')
 tmux split-window -t "$claude_id" -h -c "$dir"
-tmux new-window -t "$session" -n servers -c "$dir"
+servers_id=$(tmux new-window -t "$session" -n servers -c "$dir" -P -F '#{window_id}')
+tmux split-window -t "$servers_id" -h -c "$dir"
+tmux split-window -t "$servers_id" -v -c "$dir"
+tmux select-pane -t "$servers_id.1"
 
 # Kill old windows by ID
 for wid in $old_windows; do
