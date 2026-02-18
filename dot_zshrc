@@ -221,7 +221,6 @@ alias dcd='docker compose down'
 # ----------------------------
 alias ssh-zeus='ssh forge@170.64.158.148'
 alias ssh-hades='ssh forge@170.64.136.230'
-alias ssh-dsc-old='ssh forge@188.166.224.117'
 alias ssh-dsc='ssh forge@170.64.230.58'
 alias ssh-sport='ssh forge@157.230.40.220'
 alias ssh-sis-prod='ssh forge@20.213.24.251'
