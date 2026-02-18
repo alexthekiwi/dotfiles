@@ -3,7 +3,11 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(ls -dtu ~/Code/*/ | sed 's:/$::' | fzf --tac)
+    # Zoxide-ranked dirs first (most used at bottom), then any unvisited dirs
+    all_dirs=$(find ~/Code -mindepth 1 -maxdepth 1 -type d | sort)
+    ranked=$(zoxide query --list 2>/dev/null | grep "^$HOME/Code/[^/]*$")
+    unranked=$(comm -23 <(echo "$all_dirs") <(echo "$ranked" | sort))
+    selected=$(printf '%s\n%s' "$unranked" "$ranked" | grep -v '^$' | fzf --tac)
 fi
 
 if [[ -z $selected ]]; then
