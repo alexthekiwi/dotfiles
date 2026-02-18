@@ -122,24 +122,38 @@ source $ZSH/oh-my-zsh.sh
 
 alias sz='source ~/.zshrc'
 
-# Terminal / Files and Folders
+# ----------------------------
+# Terminal / Navigation
+# ----------------------------
 alias o='open .'
-alias c='code .'
-alias cl='clear'
 alias ls='ls --color=auto'
 alias ll='ls -la'
 alias size='du -sh *'
 alias ..='cd ..'
 alias ...='cd ../../../'
 alias ....='cd ../../../../'
-alias .....='cd ../../../../'
 alias h='history'
-alias vi='vim'
-alias svi='sudo vi'
-alias edit='vim'
+alias vim='nvim'
 alias nv='nvim'
 
+# ----------------------------
+# tmux
+# ----------------------------
+alias t='tmux'
+alias ta='tmux attach'
+alias tas='tmux attach -t'
+alias tls='tmux list-sessions'
+alias tks='tmux kill-session -t'
+alias tka='tmux kill-server'
+
+# ----------------------------
+# AI
+# ----------------------------
+alias c='claude'
+
+# ----------------------------
 # Git
+# ----------------------------
 alias g='git'
 alias gi='git init'
 alias gl='git pull'
@@ -153,36 +167,58 @@ alias gb='git branch'
 alias gm='git merge'
 alias gco='git checkout'
 alias gco-='git checkout -'
+alias gplm='git push live master'
+alias gptt='git push test test'
+alias mergeandpush='f() { git checkout $1 && git pull && git merge $2 && git push && git checkout $2 && git push };f'
+alias pushmastertest='git checkout master && git pull && git push && git checkout test && git pull && git merge master && git push && git checkout master'
+alias pushmastertestdev='git checkout master && git pull && git push && git checkout test && git pull && git merge master && git push && git checkout development && git pull && git merge master && git push && git checkout master'
+alias pmt='pushmastertest'
+alias pmtd='pushmastertestdev'
 
+# ----------------------------
 # npm
-alias nrs='npm run start'
-alias nrv='npm run serve'
+# ----------------------------
+alias nr='npm run'
 alias nrd='npm run dev'
 alias nrb='npm run build'
+alias nrs='npm run start'
+alias nrv='npm run serve'
 alias nrw='npm run watch'
 alias nrp='npm run prod'
 alias nrh='npm run hot'
-alias nr='npm run'
 
+# ----------------------------
 # PHP / Laravel
-alias art='php artisan'
+# ----------------------------
 alias pa='php artisan'
-alias pat='php artisan tinker'
-alias mfs='php artisan migrate:fresh --seed'
+alias art='php artisan'
 alias pat='php artisan test'
-alias test='php artisan test'
+alias mfs='php artisan migrate:fresh --seed'
 alias pest='./vendor/bin/pest'
 alias pint='./vendor/bin/pint'
 alias pail='php artisan pail'
 alias phpstan='./vendor/bin/phpstan analyse'
 alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
-alias smfs='sail artisan migrate:fresh --seed'
-alias sat='sail artisan tinker'
 alias sart='sail artisan'
 alias smfs='sail artisan migrate:fresh --seed'
-alias stinker='sail artisan tinker'
+alias sat='sail artisan tinker'
 
+# ----------------------------
+# Docker
+# ----------------------------
+alias d='docker'
+alias dctr='docker container'
+alias dnet='docker network'
+alias dimg='docker image'
+alias dvol='docker volume'
+alias dps='docker ps'
+alias dc='docker compose'
+alias dcu='docker compose up -d'
+alias dcd='docker compose down'
+
+# ----------------------------
 # SSH
+# ----------------------------
 alias ssh-zeus='ssh forge@170.64.158.148'
 alias ssh-hades='ssh forge@170.64.136.230'
 alias ssh-dsc-old='ssh forge@188.166.224.117'
@@ -197,9 +233,12 @@ alias ssh-noja='ssh forge@170.64.226.247'
 alias ssh-nww='ssh forge@13.237.223.95'
 alias ssh-squid-forge='ssh forge@170.64.212.159'
 alias ssh-insureos='ssh forge@3.107.187.26'
+alias ssh-zabbix='ssh -L 8080:10.10.30.9:80 forge@20.213.86.246'
+alias sshda1='f() { ssh $1@da1.securewebhosting.co.nz -p 2345 };f'
+alias sshda2='(){ ssh $1@da2.securewebhosting.co.nz -p 2345 ;}'
+
 ssh-care01() {
     if [[ -z "$1" ]]; then
-        echo "Oi, you forgot to specify a username, mate!"
         echo "Usage: ssh-care01 <username>"
         return 1
     fi
@@ -208,7 +247,6 @@ ssh-care01() {
 
 sftp-care01() {
     if [[ -z "$1" ]]; then
-        echo "Oi, you forgot to specify a username mate!"
         echo "Usage: sftp-care01 <username>"
         return 1
     fi
@@ -217,7 +255,6 @@ sftp-care01() {
 
 ssh-squid() {
     if [[ -z "$1" ]]; then
-        echo "Oi, you forgot to specify a username, mate!"
         echo "Usage: ssh-squid <username>"
         return 1
     fi
@@ -226,54 +263,23 @@ ssh-squid() {
 
 sftp-squid() {
     if [[ -z "$1" ]]; then
-        echo "Oi, you forgot to specify a username mate!"
         echo "Usage: sftp-squid <username>"
         return 1
     fi
     sftp "$1@120.138.18.205"
 }
 
-
-alias sshda1='f() { ssh $1@da1.securewebhosting.co.nz -p 2345 };f'
-alias sshda2='(){ ssh $1@da2.securewebhosting.co.nz -p 2345 ;}'
-
-alias ssh-zabbix='ssh -L 8080:10.10.30.9:80 forge@20.213.86.246'
-
-# Pushing to remotes
-alias pushmastertest='git checkout master && git pull && git push && git checkout test && git pull && git merge master && git push && git checkout master'
-alias pushmastertestdev='git checkout master && git pull && git push && git checkout test && git pull && git merge master && git push && git checkout development && git pull && git merge master && git push && git checkout master'
-alias pmt='pushmastertest'
-alias pmtd='pushmastertestdev'
-alias gplm='git push live master'
-alias gptt='git push test test'
-alias mergeandpush='f() { git checkout $1 && git pull && git merge $2 && git push && git checkout $2 && git push };f'
-
-# Docker
-alias d='docker'
-alias dctr='docker container'
-alias dnet='docker network'
-alias dimg='docker image'
-alias dvol='docker volume'
-alias dps='docker ps'
-
-# Docker Compose
-alias dc='docker compose'
-alias dcu='docker compose up -d'
-alias dcd='docker compose down'
-
-# Misc tools
-alias vim='nvim'
-alias countcode='npx cloc . --exclude-dir=.vercel,.next,node_modules,vendor,.env,.idea,.vscode,public,storage,framework,assets --not-match-f=package-lock.json'
-
-# Database SSH connections
+# ----------------------------
+# Database tunnels
+# ----------------------------
 alias repdev='ssh -N -L 3307:10.10.220.4:3306 forge@20.213.86.246'
 alias repprd='ssh -N -L 3307:10.10.30.7:3306 forge@20.213.24.251'
 
-# Pulumi (IAC)
+# ----------------------------
+# Misc
+# ----------------------------
 alias p='pulumi'
-
-# AI
-alias cl='claude'
+alias countcode='npx cloc . --exclude-dir=.vercel,.next,node_modules,vendor,.env,.idea,.vscode,public,storage,framework,assets --not-match-f=package-lock.json'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
