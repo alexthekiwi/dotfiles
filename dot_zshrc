@@ -149,7 +149,7 @@ alias tka='tmux kill-server'
 # ----------------------------
 # AI
 # ----------------------------
-alias c='claude'
+alias c='claude --dangerously-skip-permissions'
 
 # ----------------------------
 # Git
