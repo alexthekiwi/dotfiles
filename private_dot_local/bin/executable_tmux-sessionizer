@@ -1,18 +1,25 @@
 #!/usr/bin/env bash
 
+HISTORY_FILE="$HOME/.local/share/tmux-sessionizer-history"
+touch "$HISTORY_FILE"
+
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    # Zoxide-ranked dirs first (most used at bottom), then any unvisited dirs
     all_dirs=$(find ~/Code -mindepth 1 -maxdepth 1 -type d | sort)
-    ranked=$(zoxide query --list 2>/dev/null | grep "^$HOME/Code/[^/]*$")
+    # Dirs ordered by most recently sessionized (most recent last)
+    ranked=$(tac "$HISTORY_FILE" | awk '!seen[$0]++')
+    # Unranked dirs go at the top
     unranked=$(comm -23 <(echo "$all_dirs") <(echo "$ranked" | sort))
-    selected=$(printf '%s\n%s' "$unranked" "$ranked" | grep -v '^$' | fzf --tac)
+    selected=$(printf '%s\n%s' "$unranked" "$(echo "$ranked" | tac)" | grep -v '^$' | fzf --tac)
 fi
 
 if [[ -z $selected ]]; then
     exit 0
 fi
+
+# Log this selection
+echo "$selected" >> "$HISTORY_FILE"
 
 selected_name=$(basename "$selected" | tr . _)
 
