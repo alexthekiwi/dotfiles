@@ -231,12 +231,8 @@ alias ssh-medusa='ssh forge@170.64.129.219'
 alias ssh-agritech='ssh forge@170.64.142.22'
 alias ssh-noja='ssh forge@170.64.226.247'
 alias ssh-nww='ssh forge@13.237.223.95'
-alias ssh-squid-forge='ssh forge@170.64.212.159'
 alias ssh-insureos='ssh forge@3.107.187.26'
-alias ssh-zabbix='ssh -L 8080:10.10.30.9:80 forge@20.213.86.246'
 alias hl='ssh alex@homelab'
-alias sshda1='f() { ssh $1@da1.securewebhosting.co.nz -p 2345 };f'
-alias sshda2='(){ ssh $1@da2.securewebhosting.co.nz -p 2345 ;}'
 
 ssh-care01() {
     if [[ -z "$1" ]]; then
