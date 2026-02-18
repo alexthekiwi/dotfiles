@@ -15,8 +15,8 @@ selected_name=$(basename "$selected" | tr . _)
 if ! tmux has-session -t="$selected_name" 2> /dev/null; then
     tmux new-session -ds "$selected_name" -c "$selected" -n nvim
     tmux send-keys -t "$selected_name:nvim" "nvim" Enter
-    tmux new-window -t "$selected_name" -n code -c "$selected"
-    tmux split-window -t "$selected_name:code" -h -c "$selected"
+    tmux new-window -t "$selected_name" -n claude -c "$selected"
+    tmux split-window -t "$selected_name:claude" -h -c "$selected"
     tmux new-window -t "$selected_name" -n servers -c "$selected"
     tmux select-window -t "$selected_name:nvim"
 fi
