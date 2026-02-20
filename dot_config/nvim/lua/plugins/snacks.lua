@@ -9,6 +9,13 @@ return {
     explorer = {
       replace_netrw = true,
     },
+    picker = {
+      sources = {
+        files = {
+          hidden = true,
+        },
+      },
+    },
   },
   keys = {
     { "<leader>e", function() Snacks.explorer({ layout = { layout = { position = "right" } } }) end, desc = "Explorer (right)" },
