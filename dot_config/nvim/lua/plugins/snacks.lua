@@ -8,11 +8,20 @@ return {
     },
     explorer = {
       replace_netrw = true,
+      hidden = true,
+      ignored = true,
     },
     picker = {
       sources = {
         files = {
           hidden = true,
+          ignored = true,
+          exclude = { "node_modules", "vendor", ".git", ".next", ".nuxt", ".output", "dist", "build" },
+        },
+        grep = {
+          hidden = true,
+          ignored = true,
+          exclude = { "node_modules", "vendor", ".git", ".next", ".nuxt", ".output", "dist", "build" },
         },
       },
     },
