@@ -8,6 +8,7 @@ return {
       typescriptreact = { "eslint_d" },
       vue = { "eslint_d" },
       php = { "pint" },
+      blade = { "blade-formatter" },
     },
   },
 }
