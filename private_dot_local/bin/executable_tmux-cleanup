@@ -1,0 +1,23 @@
+#!/bin/bash
+# Kill all tmux sessions except the current one,
+# then re-save so resurrect doesn't bring them back.
+
+current=$(tmux display-message -p "#{session_name}" 2>/dev/null)
+
+if [ -z "$current" ]; then
+  echo "Not inside a tmux session. Killing all sessions."
+  tmux kill-server 2>/dev/null
+  rm -f ~/.tmux/resurrect/last
+  echo "Done — all sessions killed, resurrect cleared."
+  exit 0
+fi
+
+count=$(tmux list-sessions -F "#{session_name}" | grep -cv "^${current}$")
+tmux list-sessions -F "#{session_name}" \
+  | grep -v "^${current}$" \
+  | xargs -I {} tmux kill-session -t "{}"
+
+# Re-save so resurrect only remembers what's left
+~/.tmux/plugins/tmux-resurrect/scripts/save.sh 2>/dev/null
+
+echo "Done — killed ${count} session(s), kept '${current}'."
