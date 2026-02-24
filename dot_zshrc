@@ -145,6 +145,7 @@ alias tas='tmux attach -t'
 alias tls='tmux list-sessions'
 alias tks='tmux kill-session -t'
 alias tka='tmux kill-server'
+alias tcu='tmux-cleanup'
 
 # ----------------------------
 # AI
