@@ -26,3 +26,18 @@ vim.keymap.set("n", "<leader>sa", function()
     vim.cmd("write")
   end
 end, { desc = "Save / Save as" })
+
+vim.keymap.set("n", "<leader>fD", function()
+  local path = vim.fn.expand("%:p")
+  if path == "" then
+    vim.notify("No file to delete", vim.log.levels.WARN)
+    return
+  end
+  vim.ui.input({ prompt = "Delete " .. vim.fn.expand("%:.") .. "? (y/n): " }, function(input)
+    if input == "y" then
+      os.remove(path)
+      Snacks.bufdelete()
+      vim.notify("Deleted " .. path, vim.log.levels.INFO)
+    end
+  end)
+end, { desc = "Delete current file" })
