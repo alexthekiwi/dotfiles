@@ -3,6 +3,7 @@ return {
   opts = {
     keymap = {
       ["<CR>"] = {},
+      ["<Tab>"] = { "select_and_accept", "fallback" },
     },
   },
 }
