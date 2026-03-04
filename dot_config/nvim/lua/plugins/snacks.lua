@@ -9,6 +9,7 @@ return {
     explorer = {
       replace_netrw = true,
     },
+    image = { enabled = false },
     picker = {
       sources = {
         files = {
