@@ -41,3 +41,5 @@ vim.keymap.set("n", "<leader>fD", function()
     end
   end)
 end, { desc = "Delete current file" })
+
+vim.keymap.set("n", "*", "*N", { desc = "Search word, stay put" })
