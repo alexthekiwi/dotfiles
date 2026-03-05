@@ -5,8 +5,6 @@
 -- Prefer .git as root marker over package.json so monorepos resolve to the repo root
 vim.g.root_spec = { { ".git", "go.mod", "lua" }, "lsp", "cwd" }
 
--- Disable LSP inlay hints by default (toggle with <Space>uh)
-vim.g.lazyvim_inlay_hints = false
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function()
