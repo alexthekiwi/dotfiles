@@ -9,6 +9,7 @@ return {
       vue = { "eslint_d" },
       php = { "pint" },
       blade = { "blade-formatter" },
+      markdown = {},
     },
   },
 }
