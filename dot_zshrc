@@ -153,7 +153,6 @@ alias tcu='tmux-cleanup'
 # AI
 # ----------------------------
 alias c='claude --dangerously-skip-permissions'
-alias cc='tmux new-session -A -s claude'
 
 # ----------------------------
 # Git
@@ -220,18 +219,6 @@ alias dc='docker compose'
 alias dcu='docker compose up -d'
 alias dcd='docker compose down'
 
-# Safe reboot — cleanly stops OrbStack and ejects media drive before rebooting
-safereboot() {
-    echo "Stopping OrbStack..."
-    perl -e 'alarm 10; exec @ARGV' /opt/homebrew/bin/orbctl stop -a 2>/dev/null
-    killall -9 "OrbStack Helper" 2>/dev/null
-    killall -9 "OrbStack" 2>/dev/null
-    echo "Ejecting media drive..."
-    diskutil eject disk4 2>/dev/null
-    echo "Rebooting..."
-    sudo reboot
-}
-
 # ----------------------------
 # SSH
 # ----------------------------
@@ -245,7 +232,7 @@ alias ssh-sis-leg='ssh forge@40.82.210.187'
 alias ssh-medusa='ssh forge@170.64.129.219'
 alias ssh-noja='ssh forge@170.64.226.247'
 alias ssh-nww='ssh forge@13.237.223.95'
-alias ssh-insureos='ssh forge@3.107.187.26'
+alias ssh-insureos='ssh forge@3.24.67.8'
 alias hl='ssh alex@homelab'
 
 ssh-care01() {
