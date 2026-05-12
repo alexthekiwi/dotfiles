@@ -24,15 +24,15 @@ echo "$selected" >> "$HISTORY_FILE"
 selected_name=$(basename "$selected" | tr . _)
 
 if ! tmux has-session -t="$selected_name" 2> /dev/null; then
-    tmux new-session -ds "$selected_name" -c "$selected" -n nvim
-    tmux send-keys -t "$selected_name:nvim" "nvim" Enter
-    tmux new-window -t "$selected_name" -n claude -c "$selected"
-    tmux split-window -t "$selected_name:claude" -h -c "$selected"
-    tmux new-window -t "$selected_name" -n servers -c "$selected"
-    tmux split-window -t "$selected_name:servers" -h -c "$selected"
-    tmux split-window -t "$selected_name:servers" -v -c "$selected"
-    tmux select-pane -t "$selected_name:servers.1"
-    tmux select-window -t "$selected_name:nvim"
+    tmux new-session -ds "$selected_name" -c "$selected" -n code
+    tmux send-keys -t "$selected_name:code" "nvim" Enter
+    tmux new-window -t "$selected_name" -n agents -c "$selected"
+    tmux split-window -t "$selected_name:agents" -h -c "$selected"
+    tmux new-window -t "$selected_name" -n processes -c "$selected"
+    tmux split-window -t "$selected_name:processes" -h -c "$selected"
+    tmux split-window -t "$selected_name:processes" -v -c "$selected"
+    tmux select-pane -t "$selected_name:processes.1"
+    tmux select-window -t "$selected_name:code"
 fi
 
 tmux switch-client -t "$selected_name"

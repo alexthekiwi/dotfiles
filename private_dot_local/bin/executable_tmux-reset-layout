@@ -7,13 +7,13 @@ dir=$(tmux display-message -p '#{session_path}')
 old_windows=$(tmux list-windows -t "$session" -F '#{window_id}')
 
 # Create new windows and capture their IDs
-nvim_id=$(tmux new-window -t "$session" -n nvim -c "$dir" -P -F '#{window_id}')
-claude_id=$(tmux new-window -t "$session" -n claude -c "$dir" -P -F '#{window_id}')
-tmux split-window -t "$claude_id" -h -c "$dir"
-servers_id=$(tmux new-window -t "$session" -n servers -c "$dir" -P -F '#{window_id}')
-tmux split-window -t "$servers_id" -h -c "$dir"
-tmux split-window -t "$servers_id" -v -c "$dir"
-tmux select-pane -t "$servers_id.1"
+code_id=$(tmux new-window -t "$session" -n code -c "$dir" -P -F '#{window_id}')
+agents_id=$(tmux new-window -t "$session" -n agents -c "$dir" -P -F '#{window_id}')
+tmux split-window -t "$agents_id" -h -c "$dir"
+processes_id=$(tmux new-window -t "$session" -n processes -c "$dir" -P -F '#{window_id}')
+tmux split-window -t "$processes_id" -h -c "$dir"
+tmux split-window -t "$processes_id" -v -c "$dir"
+tmux select-pane -t "$processes_id.1"
 
 # Kill old windows by ID
 for wid in $old_windows; do
@@ -21,5 +21,5 @@ for wid in $old_windows; do
 done
 
 # Now send nvim after old windows are gone
-tmux send-keys -t "$nvim_id" "nvim" Enter
-tmux select-window -t "$nvim_id"
+tmux send-keys -t "$code_id" "nvim" Enter
+tmux select-window -t "$code_id"
