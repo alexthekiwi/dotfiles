@@ -153,6 +153,7 @@ alias tcu='tmux-cleanup'
 # AI
 # ----------------------------
 alias c='claude --dangerously-skip-permissions'
+alias cx='codex --yolo'
 
 # ----------------------------
 # Git
@@ -333,3 +334,7 @@ export PATH=/Users/alex/.opencode/bin:$PATH
 [[ -f "${HOME}/.iterm2_shell_integration.zsh" ]] && source "${HOME}/.iterm2_shell_integration.zsh"
 
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+
+# Herd injected PHP 8.5 configuration.
+export HERD_PHP_85_INI_SCAN_DIR="/Users/alex/Library/Application Support/Herd/config/php/85/"

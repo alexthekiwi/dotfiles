@@ -44,3 +44,9 @@ end, { desc = "Delete current file" })
 
 vim.keymap.set("n", "*", "*N", { desc = "Search word, stay put" })
 vim.keymap.set("n", "<CR>", "<cmd>nohlsearch<CR>", { desc = "Clear highlights" })
+
+-- Change without yanking — keeps clipboard intact when replacing text (e.g. pasting secrets over `ci"`)
+vim.keymap.set({ "n", "v" }, "c", '"_c')
+vim.keymap.set({ "n", "v" }, "C", '"_C')
+-- Paste over visual selection without clobbering clipboard
+vim.keymap.set("x", "p", '"_dP', { desc = "Paste without yanking selection" })
