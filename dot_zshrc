@@ -153,6 +153,7 @@ alias tcu='tmux-cleanup'
 # AI
 # ----------------------------
 alias c='claude --dangerously-skip-permissions'
+alias cc='claude --dangerously-skip-permissions --continue'
 alias cx='codex --yolo'
 
 # ----------------------------
