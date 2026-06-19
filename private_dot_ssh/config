@@ -1,0 +1,89 @@
+Host nas
+    HostName 192.168.68.2
+    User alex
+    Port 9022
+
+Host hl
+    HostName homelab
+    User alex
+
+Host *
+  IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+  LogLevel ERROR
+
+Host github-caretakers
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_caretakers
+
+Host gitlab.devart.nz
+    Port 2256
+
+# --- Caretakers AWS bastion (fixed-IP jumphost; EIP 3.102.104.3) ---
+# Reach the bastion over Tailscale; auth is Tailscale SSH (no key needed).
+# accept-new avoids a host-key prompt blocking non-interactive tools (TablePlus).
+Host bastion caretakers-bastion
+    HostName caretakers-bastion.taila4aa39.ts.net
+    User ec2-user
+    StrictHostKeyChecking accept-new
+
+# Hosts reached *through* the bastion so they egress the whitelisted EIP.
+# No IdentityFile, so they keep using your laptop's key via the 1Password agent
+# (the global "Host *" block). ProxyJump only changes transport, not auth: your
+# laptop authenticates end-to-end to the target; the bastion never sees the key.
+# Each is keyed on its raw IP too, so TablePlus "Over SSH" and `ssh forge@<ip>`
+# still match and route through the bastion automatically.
+
+# Star Insure prod VM  -> ODSPRD / REPPRD databases
+Host sis-prod star-odsprd 20.213.24.251
+    HostName 20.213.24.251
+    User forge
+    ProxyJump bastion
+
+# Star Insure test VM  -> ODSDEV / REPDEV databases
+Host sis-test star-odsdev 20.213.86.246
+    HostName 20.213.86.246
+    User forge
+    ProxyJump bastion
+
+# Star Insure legacy VM (Azure)
+Host sis-leg star-leg 40.82.210.187
+    HostName 40.82.210.187
+    User forge
+    ProxyJump bastion
+
+# Sport (DigitalOcean)
+Host sport 157.230.40.220
+    HostName 157.230.40.220
+    User forge
+    ProxyJump bastion
+
+# Medusa (DigitalOcean)
+Host medusa 170.64.129.219
+    HostName 170.64.129.219
+    User forge
+    ProxyJump bastion
+
+# DSC (DigitalOcean)
+Host dsc 170.64.230.58
+    HostName 170.64.230.58
+    User forge
+    ProxyJump bastion
+
+# Noja Power (DigitalOcean)
+Host noja 170.64.226.247
+    HostName 170.64.226.247
+    User forge
+    ProxyJump bastion
+
+# InsureOS (AWS Sydney)
+Host insureos 3.24.67.8
+    HostName 3.24.67.8
+    User forge
+    ProxyJump bastion
+
+# NumberWorks'nWords (AWS Sydney)
+Host nww 13.237.223.95
+    HostName 13.237.223.95
+    User forge
+    ProxyJump bastion
