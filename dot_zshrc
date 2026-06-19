@@ -238,8 +238,7 @@ safereboot() {
 # ----------------------------
 alias ssh-zeus='ssh forge@170.64.158.148'
 alias ssh-hades='ssh forge@170.64.136.230'
-# Routed through the Caretakers bastion via ~/.ssh/config (ssh sis-prod, sis-test, sis-leg, dsc, sport, noja, nww)
-alias ssh-medusa='ssh forge@170.64.129.219'
+# Routed through the Caretakers bastion via ~/.ssh/config (ssh sis-prod, sis-test, sis-leg, dsc, sport, medusa, noja, nww)
 alias ssh-insureos='ssh forge@3.24.67.8'
 alias hl='ssh alex@homelab'
 
