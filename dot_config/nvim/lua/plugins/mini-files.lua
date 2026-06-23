@@ -3,7 +3,12 @@ return {
   keys = {
     { "<leader>fm", function()
       local name = vim.api.nvim_buf_get_name(0)
-      require("mini.files").open(name ~= "" and name or (vim.uv or vim.loop).cwd(), true)
+      -- Anchor on the current file if it exists on disk; otherwise fall back to
+      -- Vim's tracked cwd (vim.fn.getcwd always returns a non-empty string,
+      -- unlike a live vim.uv.cwd() syscall which can return "" on a buffer with
+      -- no file or a flaky cwd).
+      local path = (name ~= "" and vim.uv.fs_stat(name)) and name or vim.fn.getcwd()
+      require("mini.files").open(path, true)
     end, desc = "Mini Files (current file)" },
     { "<leader>fM", function() require("mini.files").open(LazyVim.root(), true) end, desc = "Mini Files (root)" },
   },
