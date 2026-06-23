@@ -6,12 +6,18 @@ touch "$HISTORY_FILE"
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    # Extra non-Code dirs to make sessionizable (scratch/reading dirs)
+    # Extra non-Code dirs to make sessionizable (scratch/reading dirs).
+    # Only included if they exist — keeps the list clean on machines (e.g. the
+    # Mac Mini) where the Synology wiki mount isn't present.
     extra_dirs=(
         "$HOME/Downloads"
         "$HOME/Library/CloudStorage/SynologyDrive-Caretakers/brain/wiki"
     )
-    all_dirs=$( { find ~/Code -mindepth 1 -maxdepth 1 -type d; printf '%s\n' "${extra_dirs[@]}"; } | sort)
+    existing_extra=()
+    for d in "${extra_dirs[@]}"; do
+        [[ -d $d ]] && existing_extra+=("$d")
+    done
+    all_dirs=$( { find ~/Code -mindepth 1 -maxdepth 1 -type d; printf '%s\n' "${existing_extra[@]}"; } | sort)
     # Dirs ordered by most recently sessionized (most recent last)
     ranked=$(tac "$HISTORY_FILE" | awk '!seen[$0]++')
     # Unranked dirs go at the top
