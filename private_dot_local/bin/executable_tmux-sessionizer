@@ -18,8 +18,12 @@ else
         [[ -d $d ]] && existing_extra+=("$d")
     done
     all_dirs=$( { find ~/Code -mindepth 1 -maxdepth 1 -type d; printf '%s\n' "${existing_extra[@]}"; } | sort)
-    # Dirs ordered by most recently sessionized (most recent last)
-    ranked=$(tac "$HISTORY_FILE" | awk '!seen[$0]++')
+    # Dirs ordered by most recently sessionized (most recent last).
+    # Filter to dirs that still exist so deleted/trashed paths (which would
+    # otherwise resurrect a stale same-named session) never appear.
+    ranked=$(tac "$HISTORY_FILE" | awk '!seen[$0]++' | while IFS= read -r d; do
+        [[ -d $d ]] && printf '%s\n' "$d"
+    done)
     # Unranked dirs go at the top
     unranked=$(comm -23 <(echo "$all_dirs") <(echo "$ranked" | sort))
     selected=$(printf '%s\n%s' "$unranked" "$(echo "$ranked" | tac)" | grep -v '^$' | fzf --tac)
