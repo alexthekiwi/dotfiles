@@ -1,1 +1,2 @@
 adjust-cell-height = 15%
+keybind = shift+enter=text:\x1b\r
