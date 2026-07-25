@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Claude Code hook -> desktop notification. Delivery logic lives in
+# agent-notify-send; this only parses the hook payload.
+#
+# Usage: claude-notify <waiting|done>    # hook JSON arrives on stdin
+#
+# Wired into ~/.claude/settings.json as async Notification and Stop hooks.
+# See notes/workflow/2026-07-25-claude-code-tmux-notifications.md.
+
+set -uo pipefail
+
+event="${1:-done}"
+payload="$(cat 2>/dev/null || true)"
+
+msg=""
+if [[ -n $payload ]] && command -v jq >/dev/null 2>&1; then
+    msg="$(printf '%s' "$payload" | jq -r '.message // empty' 2>/dev/null || true)"
+fi
+
+case "$event" in
+    waiting) body="${msg:-needs your input}" ;;
+    done)    body="${msg:-turn finished}" ;;
+    *)       body="${msg:-$event}" ;;
+esac
+
+exec "$HOME/.local/bin/agent-notify-send" claude "$body"

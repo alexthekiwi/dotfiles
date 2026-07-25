@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Jump to the tmux pane that last sent a Claude Code notification.
+#
+# OSC 9 gets the terminal focused, but the terminal can't select a pane inside
+# tmux. claude-notify records the originating pane id; this walks you to it.
+# Bound to prefix+g in ~/.tmux.conf.
+
+set -uo pipefail
+
+target_file="$HOME/.local/state/claude-notify/last-pane"
+
+if [[ ! -s $target_file ]]; then
+    tmux display-message "no claude notification recorded yet"
+    exit 0
+fi
+
+pane="$(<"$target_file")"
+
+# Check existence against the full pane list rather than `display-message -t`:
+# tmux resolves targets loosely, so a dead pane id silently falls back to the
+# window's active pane and the guard would pass on a stale record.
+if ! tmux list-panes -a -F '#{pane_id}' 2>/dev/null | grep -qxF "$pane"; then
+    tmux display-message "claude: pane $pane is gone"
+    exit 0
+fi
+
+# Resolve the pane's current home — it may have been moved or its window
+# renumbered since it notified.
+session="$(tmux display-message -p -t "$pane" '#{session_name}' 2>/dev/null)"
+
+[[ -n $session ]] && tmux switch-client -t "$session"
+tmux select-window -t "$pane"
+tmux select-pane -t "$pane"

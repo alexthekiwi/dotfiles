@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+# Shared notification delivery for coding agents in tmux. Used by claude-notify
+# and codex-notify — see notes/workflow/2026-07-25-claude-code-tmux-notifications.md.
+#
+# Usage: agent-notify-send <agent> <body>
+#   agent  short label, e.g. claude | codex
+#   body   message text
+#
+# Two non-obvious things this encapsulates:
+#
+#   1. OSC 9 goes straight to each attached client's tty, NOT through tmux
+#      passthrough. tmux only forwards a pane's output to clients currently
+#      displaying that pane, so a passthrough sequence from a background pane —
+#      the only case worth notifying about — is buffered into pane history and
+#      never reaches the terminal emulator.
+#
+#   2. It records the originating pane id (not session:window.pane, which goes
+#      stale under `renumber-windows on`) so claude-jump / prefix+g can return
+#      you there.
+#
+# Env overrides:
+#   AGENT_NOTIFY_ALWAYS=1   notify even when you're looking straight at the pane
+#   AGENT_NOTIFY_DEBUG=1    log decisions to ~/.local/state/claude-notify/log
+
+set -uo pipefail
+
+agent="${1:-agent}"
+body="${2:-}"
+
+state_dir="$HOME/.local/state/claude-notify"
+mkdir -p "$state_dir"
+
+debug() {
+    [[ ${AGENT_NOTIFY_DEBUG:-${CLAUDE_NOTIFY_DEBUG:-0}} == 1 ]] || return 0
+    printf '%s %s\n' "$agent" "$*" >>"$state_dir/log"
+}
+
+# --- locate the session, and decide whether it's already under your nose -----
+pane="${TMUX_PANE:-}"
+label="" visible=0
+if [[ -n $pane ]] && command -v tmux >/dev/null 2>&1; then
+    fmt='#{session_name}|#{pane_active}|#{window_active}|#{session_attached}'
+    IFS='|' read -r sess pane_active window_active attached \
+        < <(tmux display-message -p -t "$pane" "$fmt" 2>/dev/null || true)
+    label="${sess:-}"
+    if [[ ${pane_active:-0} == 1 && ${window_active:-0} == 1 && ${attached:-0} -gt 0 ]]; then
+        visible=1
+    fi
+    printf '%s\n' "$pane" >"$state_dir/last-pane"
+fi
+[[ -n $label ]] || label="$(basename "$PWD")"
+
+# tmux knows pane visibility but not whether the terminal app has focus, so a
+# visible pane behind a browser would otherwise be suppressed. Only stay quiet
+# when the pane is visible AND the terminal is genuinely frontmost. If the
+# frontmost app can't be determined, err toward notifying.
+frontmost=0
+if [[ $visible == 1 ]] && command -v lsappinfo >/dev/null 2>&1; then
+    front_name="$(lsappinfo info -only name "$(lsappinfo front 2>/dev/null)" 2>/dev/null || true)"
+    case "$front_name" in
+        *Ghostty*|*iTerm*|*Terminal*|*Alacritty*|*kitty*|*WezTerm*) frontmost=1 ;;
+    esac
+fi
+
+if [[ ${AGENT_NOTIFY_ALWAYS:-${CLAUDE_NOTIFY_ALWAYS:-0}} != 1 && $visible == 1 && $frontmost == 1 ]]; then
+    debug "suppressed (pane visible, terminal frontmost)"
+    exit 0
+fi
+
+# --- compose ----------------------------------------------------------------
+text="${agent} · ${label} — ${body}"
+# Strip control characters; a stray BEL or ESC would truncate or reinterpret the
+# sequence, and agent messages are not guaranteed to be clean.
+text="$(printf '%s' "$text" | tr -d '\000-\037')"
+
+# --- deliver ----------------------------------------------------------------
+sent=0
+if command -v tmux >/dev/null 2>&1 && [[ -n ${TMUX:-} ]]; then
+    while read -r tty; do
+        [[ -w $tty ]] || continue
+        printf '\033]9;%s\007' "$text" >"$tty" 2>/dev/null && sent=1
+    done < <(tmux list-clients -F '#{client_tty}' 2>/dev/null || true)
+fi
+
+# Not in tmux, or no writable client attached — fall back to our own tty.
+if [[ $sent == 0 && -w /dev/tty ]]; then
+    printf '\033]9;%s\007' "$text" >/dev/tty 2>/dev/null && sent=1
+fi
+
+debug "delivered=$sent visible=$visible frontmost=$frontmost text=$text"
+exit 0

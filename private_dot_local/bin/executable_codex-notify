@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# Codex `notify` callback -> desktop notification + tmux pane recording, then
+# hands off to the Codex Computer Use client.
+#
+# Codex invokes: codex-notify <passthrough-args...> '<json payload>'
+# The payload is the LAST argv element (not stdin, unlike Claude Code hooks) and
+# carries: type, thread-id, turn-id, cwd, input-messages, last-assistant-message.
+#
+# Why a wrapper: `notify` is a single command slot with no list form, and it was
+# already occupied by the Computer Use callback. Replacing it outright would
+# silently break Computer Use, so this chains to it with the original argv.
+#
+# Limitation: `notify` only emits agent-turn-complete. `approval-requested`
+# reaches the terminal solely via [tui] notification_method = "osc9", which tmux
+# drops when the pane is in the background. See the note for details.
+
+set -uo pipefail
+
+CU_CLIENT="$HOME/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient"
+
+payload="${!#:-}"   # last argument
+
+body="turn finished"
+if [[ -n $payload ]] && command -v jq >/dev/null 2>&1; then
+    kind="$(printf '%s' "$payload" | jq -r '.type // empty' 2>/dev/null || true)"
+    last="$(printf '%s' "$payload" | jq -r '."last-assistant-message" // empty' 2>/dev/null || true)"
+    case "$kind" in
+        agent-turn-complete|'') ;;
+        *) body="$kind" ;;
+    esac
+    if [[ -n $last ]]; then
+        # First line, trimmed — banners get one line of room.
+        summary="$(printf '%s' "$last" | head -1 | cut -c1-90)"
+        [[ -n $summary ]] && body="$summary"
+    fi
+fi
+
+# Never let notification trouble stop the Computer Use handoff.
+"$HOME/.local/bin/agent-notify-send" codex "$body" || true
+
+if [[ -x $CU_CLIENT ]]; then
+    exec "$CU_CLIENT" "$@"
+fi
+exit 0
