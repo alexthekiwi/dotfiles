@@ -221,6 +221,34 @@ alias dc='docker compose'
 alias dcu='docker compose up -d'
 alias dcd='docker compose down'
 
+killport() {
+    if [[ -z "$1" || ! "$1" =~ '^[0-9]+$' ]]; then
+        echo "Usage: killport <port>"
+        return 1
+    fi
+
+    local port="$1"
+    local matches
+    matches="$(sudo lsof -nP -iTCP:"$port" -sTCP:LISTEN)"
+
+    if [[ -z "$matches" ]]; then
+        echo "Nothing listening on port $port"
+        return 0
+    fi
+
+    local -a pids
+    pids=("${(@f)$(printf '%s\n' "$matches" | awk 'NR > 1 { print $2 }' | sort -u)}")
+
+    if (( ${#pids[@]} == 0 )); then
+        echo "Could not find a PID listening on port $port"
+        return 1
+    fi
+
+    echo "Killing process(es) listening on port $port:"
+    printf '%s\n' "$matches"
+    sudo kill -9 "${pids[@]}"
+}
+
 # Safe reboot — cleanly stops OrbStack and ejects media drive before rebooting
 safereboot() {
     echo "Stopping OrbStack..."
