@@ -155,6 +155,7 @@ alias tcu='tmux-cleanup'
 alias c='claude --dangerously-skip-permissions'
 alias cc='claude --dangerously-skip-permissions --continue'
 alias cx='codex --yolo'
+alias oc='opencode --auto'
 
 # ----------------------------
 # Git
