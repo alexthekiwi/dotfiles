@@ -152,6 +152,8 @@ alias tcu='tmux-cleanup'
 # ----------------------------
 # AI
 # ----------------------------
+export OPENCODE_DISABLE_CLAUDE_CODE_SKILLS=1
+
 alias c='opencode --auto'
 alias cc='claude --dangerously-skip-permissions'
 alias cx='codex --yolo'
