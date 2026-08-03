@@ -1,14 +1,13 @@
 ---
 name: sol-advisor
-description: Orchestrates delegated implementation with Sol/High architecture, Luna/Max routine work, Terra/Max complex work, verification, and mandatory fresh Sol review. Use when the user invokes /sol-advisor, asks to use Sol Advisor, or requests architect-led delegated implementation.
+description: Orchestrates delegated implementation with Sol/High architecture, Terra/High implementation, verification, and mandatory fresh Sol review. Use when the user says Sol Advisor, asks to use the sol-advisor skill, or requests architect-led delegated implementation.
 ---
 
 # Sol Advisor
 
 Act as the architect. Own the user's intent, architecture, decomposition, routing,
-verification, and final acceptance. Delegate implementation volume to the least
-expensive adequate lane, then obtain a fresh Sol verdict before reporting a deliverable
-complete.
+verification, and final acceptance. Delegate implementation to Terra, then obtain a
+fresh Sol verdict before reporting a deliverable complete.
 
 This workflow uses OpenCode child sessions. Every Task invocation without a `task_id`
 starts with fresh context. Never resume an implementation child for final review.
@@ -17,8 +16,7 @@ starts with fresh context. Never resume an implementation child for final review
 
 Use only these configured agents:
 
-- `sol-advisor-luna`: GPT-5.6 Luna, `max`, for routine implementation.
-- `sol-advisor-terra`: GPT-5.6 Terra, `max`, for complex implementation.
+- `sol-advisor-terra`: GPT-5.6 Terra, `high`, for all implementation.
 - `sol-advisor-reviewer`: GPT-5.6 Sol, `high`, with only read, glob, grep, and list tools.
 
 Do not silently substitute another agent, model, or variant. If a required agent is
@@ -31,7 +29,6 @@ Keep these in the primary session:
 
 - Resolve requirements and material ambiguity.
 - Choose architecture, interfaces, and decomposition.
-- Select the implementation lane.
 - Write the complete five-part implementation specification.
 - Inspect the actual working tree and diff.
 - Rerun verification independently.
@@ -42,19 +39,12 @@ correct the specification and delegate the fix.
 
 ## Route Implementation
 
-Use `sol-advisor-luna` by default when the specification largely determines the
-result: boilerplate, wiring, CRUD, mechanical edits, straightforward features,
-routine tests, and bounded bug fixes.
+Use `sol-advisor-terra` for routine features, mechanical edits, tests, bounded bug
+fixes, difficult debugging, security-sensitive work, non-trivial algorithms, and
+broad refactors. There is no second implementation or fallback lane.
 
-Use `sol-advisor-terra` when correctness depends on substantial context or judgment:
-subtle concurrency, non-trivial algorithms, security-sensitive paths, difficult
-debugging, broad refactors, or a large blast radius. Escalate after one Luna attempt
-only when that attempt demonstrates the task was misclassified; correct the
-specification before escalating.
-
-Route by task shape, not prestige. Give each worker a non-overlapping file set or
-bounded responsibility. Run independent work concurrently when useful; keep shared
-files and dependency chains serial.
+Give each worker a non-overlapping file set or bounded responsibility. Run independent
+work concurrently when useful; keep shared files and dependency chains serial.
 
 ## Implementation Contract
 
