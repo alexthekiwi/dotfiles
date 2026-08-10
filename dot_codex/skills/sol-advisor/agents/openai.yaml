@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sol Advisor"
+  short_description: "Architect-led Terra implementation and Sol review"
+  default_prompt: "Use $sol-advisor to implement this change through Terra, verify it, and obtain a fresh Sol review."
