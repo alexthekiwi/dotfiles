@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ingest Meeting"
+  short_description: "Find and ingest recent meeting transcripts"
+  default_prompt: "Use $ingest-meeting to ingest my latest client meeting."
