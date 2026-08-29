@@ -45,13 +45,14 @@ cycleOrder:
 statusLine:
   preset: custom
   separator: thin
-  sessionAccent: false
+  sessionAccent: true
   transparent: true
   leftSegments:
     - model
     - mode
     - path
     - git
+    - session_name
     - pr
   rightSegments:
     - cost
