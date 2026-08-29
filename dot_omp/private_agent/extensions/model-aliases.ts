@@ -4,9 +4,9 @@ export default function modelAliases(pi) {
     luna: "@luna",
     fable: "@fable",
     composer: "@composer",
-    cfast: "@cfast",
+    composerfast: "@composerfast",
     grok: "@grok",
-    gfast: "@gfast",
+    grokfast: "@grokfast",
   };
 
   for (const [name, spec] of Object.entries(aliases)) {
