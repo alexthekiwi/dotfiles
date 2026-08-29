@@ -8,6 +8,10 @@ theme:
   dark: flat
   light: light
 setupVersion: 2
+browser:
+  relay: true
+computer:
+  enabled: true
 startup:
   setupWizard: false
   showSplash: false
@@ -23,9 +27,9 @@ modelRoles:
   luna: openai-codex/gpt-5.6-luna:max
   fable: cursor/claude-fable-5-high:high
   composer: cursor/composer-2.5
-  cfast: cursor/composer-2.5-fast
+  composerfast: cursor/composer-2.5-fast
   grok: cursor/cursor-grok-4.6
-  gfast: cursor/cursor-grok-4.6-fast
+  grokfast: cursor/cursor-grok-4.6-fast
 enabledModels:
   - openai-codex/gpt-5.6-sol
   - openai-codex/gpt-5.6-luna
@@ -35,9 +39,9 @@ enabledModels:
   - cursor/cursor-grok-4.6
   - cursor/cursor-grok-4.6-fast
 cycleOrder:
-  - cfast
+  - composerfast
   - composer
-  - gfast
+  - grokfast
   - grok
   - sol
   - luna
