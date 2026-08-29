@@ -93,3 +93,4 @@ chezmoi diff
 - `~/.config/nvim/` — LazyVim neovim config
 - `~/.config/iterm2/` — iTerm2 preferences
 - `~/.local/bin/tmux-sessionizer` — fuzzy project session switcher
+- `~/.omp/agent/{config.yml,extensions,themes}` — OMP models, slash aliases, and the flat theme (no credentials or session DBs)
