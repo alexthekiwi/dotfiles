@@ -59,7 +59,6 @@ statusLine:
     - session_name
     - pr
   rightSegments:
-    - cost
     - context_pct
   segmentOptions:
     model:
@@ -77,3 +76,5 @@ spelling:
   autocomplete: false
   typoDetection: false
 emojiAutocomplete: false
+dev:
+  autoqaConsent: granted
