@@ -1,6 +1,6 @@
 ---
 name: ingest-meeting
-description: Find a recent MacWhisper meeting transcript in Alex or Keir's Synology Drive exports, confirm the recording and destination wiki, and hand it to the wiki-ingest workflow. Use for requests such as "ingest my latest Di Antonio meeting", "add yesterday's meeting to the wiki", "find my recent client call", or other requests to ingest an automatically exported meeting transcript. Supports MacWhisper JSON and text exports, multiple operators, and shared or project-specific wikis.
+description: Route loosely identified meeting requests through transcript discovery and then wiki-ingest. MUST use this skill before wiki-ingest when the user identifies a meeting by recency, date, client, person, or context without supplying an exact transcript path, including requests such as "ingest my latest Di Antonio meeting" or "add yesterday's meeting to the wiki". Finds MacWhisper JSON and text exports for Alex or Keir and supports shared or project-specific wikis.
 ---
 
 # Ingest Meeting

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Wiki Ingest"
+  short_description: "Ingest client sources into the Caretakers wiki"
+  default_prompt: "Use $wiki-ingest to ingest this client source into the Caretakers wiki."
