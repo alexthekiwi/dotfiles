@@ -59,6 +59,8 @@ statusLine:
     - session_name
     - pr
   rightSegments:
+    - subagents
+    - usage
     - context_pct
   segmentOptions:
     model:
