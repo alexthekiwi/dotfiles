@@ -268,7 +268,7 @@ killchrome() {
     rm -rf /var/folders/*/T/agent-browser-chrome-* 2>/dev/null
 
     if [[ "${1:-}" != "--no-open" ]]; then
-        open -a "Google Chrome"
+        open -na "Google Chrome" --args --silent-debugger-extension-api
     fi
 }
 
@@ -298,105 +298,5 @@ ssh-care01() {
     ssh "$1@223.165.64.179"
 }
 
-ssh-tressel() {
-    if [[ -z "$1" ]]; then
-        echo "Usage: ssh-tressel <username>"
-        return 1
-    fi
-    ssh "$1@120.138.18.83"
-}
 
-sftp-care01() {
-    if [[ -z "$1" ]]; then
-        echo "Usage: sftp-care01 <username>"
-        return 1
-    fi
-    sftp "$1@223.165.64.179"
-}
-
-ssh-squid() {
-    if [[ -z "$1" ]]; then
-        echo "Usage: ssh-squid <username>"
-        return 1
-    fi
-    ssh "$1@120.138.18.205"
-}
-
-sftp-squid() {
-    if [[ -z "$1" ]]; then
-        echo "Usage: sftp-squid <username>"
-        return 1
-    fi
-    sftp "$1@120.138.18.205"
-}
-
-# ----------------------------
-# Database tunnels
-# ----------------------------
-alias repdev='ssh -N -L 3307:10.10.220.4:3306 forge@20.213.86.246'
-alias repprd='ssh -N -L 3307:10.10.30.7:3306 forge@20.213.24.251'
-
-# ----------------------------
-# Misc
-# ----------------------------
-alias p='pulumi'
-alias countcode='npx cloc . --exclude-dir=.vercel,.next,node_modules,vendor,.env,.idea,.vscode,public,storage,framework,assets --not-match-f=package-lock.json'
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-
-
-# Herd injected PHP binary.
-export PATH="/Users/alex/Library/Application Support/Herd/bin/":$PATH
-export PHP_INI_SCAN_DIR="/Users/alex/Library/Application Support/Herd/config/php/":$PHP_INI_SCAN_DIR
-
-
-# Herd injected PHP 8.3 configuration.
-export HERD_PHP_83_INI_SCAN_DIR="/Users/alex/Library/Application Support/Herd/config/php/83/"
-
-
-# Herd injected PHP 8.2 configuration.
-export HERD_PHP_82_INI_SCAN_DIR="/Users/alex/Library/Application Support/Herd/config/php/82/"
-
-
-# Herd injected PHP 8.1 configuration.
-export HERD_PHP_81_INI_SCAN_DIR="/Users/alex/Library/Application Support/Herd/config/php/81/"
-
-
-# Herd injected PHP 8.0 configuration.
-export HERD_PHP_80_INI_SCAN_DIR="/Users/alex/Library/Application Support/Herd/config/php/80/"
-
-
-# Herd injected PHP 7.4 configuration.
-export HERD_PHP_74_INI_SCAN_DIR="/Users/alex/Library/Application Support/Herd/config/php/74/"
-
-eval $(thefuck --alias)
-
-
-# Herd injected PHP 8.4 configuration.
-export HERD_PHP_84_INI_SCAN_DIR="/Users/alex/Library/Application Support/Herd/config/php/84/"
-
-# pnpm
-export PNPM_HOME="/Users/alex/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-# opencode
-export PATH=/Users/alex/.opencode/bin:$PATH
-
-
-[[ -f "${HOME}/.iterm2_shell_integration.zsh" ]] && source "${HOME}/.iterm2_shell_integration.zsh"
-
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
-
-
-# Herd injected PHP 8.5 configuration.
-export HERD_PHP_85_INI_SCAN_DIR="/Users/alex/Library/Application Support/Herd/config/php/85/"
+[Showing lines 1-300 of 403. Use :301 to continue]
