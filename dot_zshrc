@@ -254,6 +254,24 @@ killport() {
     printf '%s\n' "$matches"
     sudo kill -9 "${pids[@]}"
 }
+killchrome() {
+    pkill -9 -f 'Google Chrome' 2>/dev/null
+    pkill -9 -f 'chrome_crashpad_handler.*Chrome' 2>/dev/null
+
+    rm -f \
+        "$HOME/Library/Application Support/Google/Chrome/DevToolsActivePort" \
+        "$HOME/Library/Application Support/Google/Chrome/SingletonLock" \
+        "$HOME/Library/Application Support/Google/Chrome/SingletonCookie" \
+        "$HOME/Library/Application Support/Google/Chrome/SingletonSocket" \
+        2>/dev/null
+
+    rm -rf /var/folders/*/T/agent-browser-chrome-* 2>/dev/null
+
+    if [[ "${1:-}" != "--no-open" ]]; then
+        open -a "Google Chrome"
+    fi
+}
+
 
 # Safe reboot — cleanly stops OrbStack and ejects media drive before rebooting
 safereboot() {
