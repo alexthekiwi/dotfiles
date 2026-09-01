@@ -299,4 +299,6 @@ ssh-care01() {
 }
 
 
+[You have received this identical output 3 times. Re-reading '/Users/alex/.local/share/chezmoi/dot_zshrc:raw' will not change it — use a narrower selector (path:A-B), or proceed with the edit.]
+
 [Showing lines 1-300 of 403. Use :301 to continue]
