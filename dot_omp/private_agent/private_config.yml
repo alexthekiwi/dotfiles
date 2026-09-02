@@ -9,7 +9,8 @@ theme:
   light: light
 setupVersion: 2
 browser:
-  relay: true
+  relay: false
+  headless: false
 computer:
   enabled: true
 startup:
