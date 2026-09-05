@@ -18,14 +18,15 @@ startup:
   showSplash: false
 modelRoles:
   default: openai-codex/gpt-5.6-sol:high
-  smol: cursor/composer-2.5-fast
-  slow: anthropic/claude-fable-5:high
-  plan: openai-codex/gpt-5.6-sol:high
-  task: cursor/composer-2.5-fast
+  smol: anthropic/claude-sonnet-5:low
+  slow: anthropic/claude-fable-5-1:high
+  plan: openai-codex/gpt-6-astra:high
+  task: anthropic/claude-sonnet-5:high
   commit: cursor/composer-2.5-fast
-  vision: anthropic/claude-fable-5
+  vision: anthropic/claude-fable-5-1
   sol: openai-codex/gpt-5.6-sol:high
   luna: openai-codex/gpt-5.6-luna:max
+  astra: openai-codex/gpt-6-astra:medium
   fable: anthropic/claude-fable-5-1:high
   opus: anthropic/claude-opus-5:high
   sonnet: anthropic/claude-sonnet-5:high
@@ -36,6 +37,7 @@ modelRoles:
 enabledModels:
   - openai-codex/gpt-5.6-sol
   - openai-codex/gpt-5.6-luna
+  - openai-codex/gpt-6-astra
   - anthropic/claude-fable-5
   - anthropic/claude-fable-5-1
   - anthropic/claude-opus-5
@@ -53,6 +55,7 @@ cycleOrder:
   - opus
   - sol
   - luna
+  - astra
   - fable
 statusLine:
   preset: custom
