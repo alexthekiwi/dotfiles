@@ -5,7 +5,7 @@
 Use:
 
 ```text
-/Users/alex/Obsidian/caretakers-brain/Wiki
+~/Obsidian/caretakers-brain/Wiki
 ```
 
 This path is the vault root. Current files live directly under it:

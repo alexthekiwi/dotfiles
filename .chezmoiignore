@@ -1,0 +1,9 @@
+# Credentials are provisioned locally, never distributed as skills.
+.config/sitehost/credentials.env
+
+# Media operations depend on services and credentials local to the homelab.
+{{ if ne .chezmoi.hostname "homelab" }}
+.omp/agent/skills/qbit-seed-cleanup
+.claude/skills/qbit-seed-cleanup
+.codex/skills/qbit-seed-cleanup
+{{ end }}

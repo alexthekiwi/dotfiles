@@ -43,11 +43,11 @@ Use `--root` when the resolved meetings root differs from the default. The helpe
 
 If no transcript is present, explain that MacWhisper may not have completed auto-export and stop. If the user supplied a hint but none of the candidates match it, say so rather than presenting a recency-only result as a confident match.
 
-Present at most three useful candidates with the recording date/time, format, short contextual excerpt, and why each matched. Always confirm the selected meeting before ingesting it. Never select or ingest an `.m4a` file when a transcript exists.
+Present at most three useful candidates with recording date/time, format, a short contextual excerpt, and why each matched. Ask for selection when multiple candidates plausibly match or the user's intent is unclear. Reuse an exact source selection already supplied by the user. Never select or ingest an `.m4a` file when a transcript exists.
 
 ## 3. Confirm the destination wiki
 
-Ask the user to choose from these options, recommending the default:
+Reuse a destination explicitly supplied by the user or already confirmed in this task. Otherwise ask the user to choose from these options, recommending the default:
 
 1. **Default (Synology Shared Wiki)** — resolve `$HOME/Obsidian/caretakers-brain/Wiki`, falling back to `$HOME/Library/CloudStorage/SynologyDrive-Caretakers/brain/wiki`.
 2. **Current Project Directory** — inspect the current project for its wiki root and local `AGENTS.md`; if more than one plausible wiki exists, ask which one.

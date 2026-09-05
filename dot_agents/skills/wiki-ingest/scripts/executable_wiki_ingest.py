@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Optional
 
 
-DEFAULT_VAULT = Path("/Users/alex/Obsidian/caretakers-brain/Wiki")
+DEFAULT_VAULT = Path.home() / "Obsidian/caretakers-brain/Wiki"
 PROJECT_SLUGS = {
     "dollarforschools": "dollar-for-schools",
     "dfs": "dollar-for-schools",
@@ -64,7 +64,7 @@ def write_manifest(vault: Path, data: dict) -> None:
 
 def infer_slug(cwd: Path) -> str:
     try:
-        code = Path("/Users/alex/Code").resolve()
+        code = (Path.home() / "Code").resolve()
         project = cwd.resolve().relative_to(code).parts[0]
     except Exception:
         project = cwd.name

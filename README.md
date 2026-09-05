@@ -69,6 +69,47 @@ exit
 chezmoi diff
 ```
 
+## Agent Skills
+
+The laptop is the primary development machine; the homelab is backup development and household media infrastructure.
+
+- `~/.agents/skills/`: canonical shared development skills, including scripts and references. Claude and Codex skill entries are relative symlinks to these copies; OMP discovers the shared root directly.
+- `~/.agents/AGENTS.md`: shared operating preferences, linked into OMP, Codex, and Claude's global instruction locations.
+- `~/.omp/agent/skills/qbit-seed-cleanup/`: homelab-only, with Claude/Codex links to that source. `.chezmoiignore` excludes it on hosts other than `homelab`; its service helpers and credentials remain local.
+
+These directories deliberately do not use chezmoi's `exact_` attribute. Extra machine-only skills, plugin-managed skills, and `.codex/skills/.system` are left alone. Avoid using rsync to replace managed skill trees after this cutover.
+
+### Editing a shared skill
+
+Edit the canonical copy, then capture only that skill:
+
+```bash
+chezmoi add ~/.agents/skills/<name>
+chezmoi diff ~/.agents/skills/<name>
+```
+
+Review and commit the corresponding `dot_agents/skills/<name>` changes in this repository. Skill packages can contain credentials as well as example tokens: review secret-scanner warnings before committing. SiteHost reads credentials from the environment or local `~/.config/sitehost/credentials.env` (mode 0600); that file is explicitly ignored and must be provisioned separately on each machine.
+
+### First adoption on an existing machine
+
+Compare existing skills before applying, especially same-named copies that differ. Back up local copies outside this repository before replacing directories with symlinks. The homelab's pre-cutover copies are under `~/.local/state/skill-migration/`.
+
+Use a scoped apply, keeping repository install scripts and unrelated configuration out of the migration:
+
+```bash
+chezmoi diff ~/.agents ~/.claude/skills ~/.claude/CLAUDE.md \
+  ~/.codex/skills ~/.codex/agents ~/.codex/AGENTS.md ~/.omp/agent/AGENTS.md
+chezmoi --less-interactive apply --exclude scripts \
+  ~/.agents ~/.claude/skills ~/.claude/CLAUDE.md \
+  ~/.codex/skills ~/.codex/agents ~/.codex/AGENTS.md ~/.omp/agent/AGENTS.md
+```
+
+On the homelab, also apply `~/.omp/agent/skills`. At a conflicting local skill, choose `diff` or `skip` until the local edits have been reconciled; do not use `--force` or `all-overwrite` for initial adoption. The laptop was offline during setup, so its first comparison and apply still need to be completed.
+
+### Homelab cleanup safety
+
+`qbit-seed-cleanup preview` is not read-only: it reconciles tracker tags. A request to audit torrents alone does not authorise that write. The skill requires approval before invoking it for inspection. The cleanup keeps `deleteFiles=false` and checks payload retention, but a hardlink count alone does not prove the second link is inside a media library.
+
 ## Tmux Cheat Sheet
 
 | Action                    | Keys                          |

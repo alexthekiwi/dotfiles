@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prime"
+  short_description: "Apply Alex development style"
+  default_prompt: "Use $prime to apply Alex development style for this session."

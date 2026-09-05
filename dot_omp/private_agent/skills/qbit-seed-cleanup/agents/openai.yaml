@@ -1,0 +1,4 @@
+interface:
+  display_name: "qBit Seed Cleanup"
+  short_description: "Safely stop seeding while retaining files"
+  default_prompt: "Use $qbit-seed-cleanup to identify eligible completed torrents, preview them, and stop seeding without deleting their files."
