@@ -1,11 +1,9 @@
 ---
 name: email-voice
 description: >
-  Use this skill whenever Alex asks you to draft, write, reply to, or compose any email, message, or professional communication.
-  This includes requests like "draft a reply to...", "write an email to...", "help me respond to...", "can you email...",
-  "write a follow-up", "chase up", "send a message to", or any variation involving client or professional correspondence.
-  Also trigger when Alex asks you to review or rewrite an email to sound more like him. Always use this skill for email-related
-  tasks. It contains his exact voice and tone, with real examples to match against.
+  Use whenever Alex asks you to draft, write, reply to, or rewrite any email, message, or professional
+  communication — including reviewing a draft to sound more like him. Contains his exact voice and tone,
+  with real examples to match against.
 ---
 
 # Alex's Email Voice

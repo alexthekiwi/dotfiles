@@ -73,7 +73,7 @@ chezmoi diff
 
 The laptop is the primary development machine; the homelab is backup development and household media infrastructure.
 
-- `~/.agents/skills/`: canonical shared development skills, including scripts and references. Claude and Codex skill entries are relative symlinks to these copies; OMP discovers the shared root directly.
+- `~/.agents/skills/`: canonical shared development skills, including scripts and references. Claude and Codex skill entries are relative symlinks to these copies; the installed Gemini and OpenClaw skills also link here. OMP discovers the shared root directly.
 - `~/.agents/AGENTS.md`: shared operating preferences, linked into OMP, Codex, and Claude's global instruction locations.
 - `~/.omp/agent/skills/qbit-seed-cleanup/`: homelab-only, with Claude/Codex links to that source. `.chezmoiignore` excludes it on hosts other than `homelab`; its service helpers and credentials remain local.
 
@@ -104,7 +104,11 @@ chezmoi --less-interactive apply --exclude scripts \
   ~/.codex/skills ~/.codex/agents ~/.codex/AGENTS.md ~/.omp/agent/AGENTS.md
 ```
 
-On the homelab, also apply `~/.omp/agent/skills`. At a conflicting local skill, choose `diff` or `skip` until the local edits have been reconciled; do not use `--force` or `all-overwrite` for initial adoption. The laptop was offline during setup, so its first comparison and apply still need to be completed.
+On the homelab, also apply `~/.omp/agent/skills`. At a conflicting local skill, choose `diff` or `skip` until the local edits have been reconciled; do not use `--force` or `all-overwrite` for initial adoption. The laptop's shared skills and global preferences were reconciled with the homelab on 2026-09-07. Its previous Gemini/OpenClaw copies are backed up outside this repository under `~/.local/state/skill-audit/`.
+
+Gemini/OpenClaw links are managed only for the skills already installed on the laptop. When adopting these links on another machine, compare and back up existing directories first, then apply the scoped `~/.gemini/skills` and `~/.openclaw/skills` targets. Other machine-local and vendor-managed skills remain untouched.
+
+The 2026-09-07 audit retired `arrange`, whose instruction body duplicated `layout` and which Impeccable already marked as renamed. Use `layout`; `.chezmoiremove` removes the old canonical directory and Claude/Codex entries. The laptop's pre-audit copy is preserved alongside the provider backups.
 
 ### Homelab cleanup safety
 

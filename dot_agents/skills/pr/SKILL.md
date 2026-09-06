@@ -1,6 +1,6 @@
 ---
 name: pr
-description: Stage, commit, push, and open a GitHub pull request in Alex's house style. Use when the user asks to ship current work, create a PR, open a pull request, run the old /pr workflow, or explicitly invokes $pr. Supports draft PRs and issue fallback when requested.
+description: Stage, commit, push, and open a GitHub pull request in Alex's house style. Use when the user asks to ship current work or open a pull request, including via the old /pr workflow or $pr.
 ---
 
 # PR

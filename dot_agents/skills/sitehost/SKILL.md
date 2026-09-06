@@ -1,6 +1,6 @@
 ---
 name: sitehost
-description: SSH into SiteHost cloud containers to debug errors, check logs, inspect configs, restart services, deploy code, and manage hosted sites. Use when the user asks to SSH into a site, debug a hosting issue, check server logs, restart nginx/php/node, or perform any server administration task on SiteHost containers. Triggers include "ssh into", "check the logs on", "debug the 502 on", "restart nginx on", "deploy to", or any mention of a site name with a server task.
+description: SSH into SiteHost cloud containers to debug errors, check logs, inspect configs, restart services, deploy code, and manage hosted sites. Use for any server administration task on a SiteHost container — debugging a hosting issue, checking logs, restarting nginx/php/node, or deploying — when the user names a site or container.
 allowed-tools: Bash(ssh:*), Bash(grep:*), Bash(cat:*), Bash(tail:*), Bash(head:*), Bash(find:*), Bash(ls:*), Bash(curl:*)
 ---
 

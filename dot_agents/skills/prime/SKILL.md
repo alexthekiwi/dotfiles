@@ -1,6 +1,6 @@
 ---
 name: prime
-description: Prime the session with Alex's development style and review habits. Use when the user asks to prime the agent, apply Alex's style, run the old /prime workflow, or explicitly invokes $prime before development work.
+description: Prime the session with Alex's development style and review habits. Use when the user asks to prime the agent, including via the old /prime workflow or $prime, before development work.
 ---
 
 # Prime

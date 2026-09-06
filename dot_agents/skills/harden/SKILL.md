@@ -309,6 +309,8 @@ const throttledScroll = throttle(handleScroll, 100);
 
 ## Testing Strategies
 
+Match the strategies below to the change's actual risk and scope — a small copy or overflow fix doesn't need the full battery; a payment flow or accessibility-critical component does.
+
 **Manual testing**:
 - Test with extreme data (very long, very short, empty)
 - Test in different languages

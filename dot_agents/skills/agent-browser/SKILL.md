@@ -1,6 +1,6 @@
 ---
 name: agent-browser
-description: Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to "open a website", "fill out a form", "click a button", "take a screenshot", "scrape data from a page", "test this web app", "login to a site", "automate browser actions", or any task requiring programmatic web interaction.
+description: Browser automation CLI for AI agents — navigate pages, fill forms, click, extract data, take screenshots, or drive iOS Safari. Use for any task requiring programmatic web interaction (open a site, automate a flow, scrape content, test a web app).
 allowed-tools: Bash(npx agent-browser:*), Bash(agent-browser:*)
 ---
 
@@ -80,45 +80,6 @@ agent-browser click @e5
 agent-browser wait --load networkidle
 ```
 
-### Authentication with State Persistence
-
-```bash
-# Login once and save state
-agent-browser open https://app.example.com/login
-agent-browser snapshot -i
-agent-browser fill @e1 "$USERNAME"
-agent-browser fill @e2 "$PASSWORD"
-agent-browser click @e3
-agent-browser wait --url "**/dashboard"
-agent-browser state save auth.json
-
-# Reuse in future sessions
-agent-browser state load auth.json
-agent-browser open https://app.example.com/dashboard
-```
-
-### Session Persistence
-
-```bash
-# Auto-save/restore cookies and localStorage across browser restarts
-agent-browser --session-name myapp open https://app.example.com/login
-# ... login flow ...
-agent-browser close  # State auto-saved to ~/.agent-browser/sessions/
-
-# Next time, state is auto-loaded
-agent-browser --session-name myapp open https://app.example.com/dashboard
-
-# Encrypt state at rest
-export AGENT_BROWSER_ENCRYPTION_KEY=$(openssl rand -hex 32)
-agent-browser --session-name secure open https://app.example.com
-
-# Manage saved states
-agent-browser state list
-agent-browser state show myapp-default.json
-agent-browser state clear myapp
-agent-browser state clean --older-than 7
-```
-
 ### Data Extraction
 
 ```bash
@@ -132,71 +93,9 @@ agent-browser snapshot -i --json
 agent-browser get text @e1 --json
 ```
 
-### Parallel Sessions
+For login flows, saved/encrypted state, and running multiple sessions concurrently, see [references/session-and-auth.md](references/session-and-auth.md).
 
-```bash
-agent-browser --session site1 open https://site-a.com
-agent-browser --session site2 open https://site-b.com
-
-agent-browser --session site1 snapshot -i
-agent-browser --session site2 snapshot -i
-
-agent-browser session list
-```
-
-### Connect to Existing Chrome
-
-```bash
-# Auto-discover running Chrome with remote debugging enabled
-agent-browser --auto-connect open https://example.com
-agent-browser --auto-connect snapshot
-
-# Or with explicit CDP port
-agent-browser --cdp 9222 snapshot
-```
-
-### Visual Browser (Debugging)
-
-```bash
-agent-browser --headed open https://example.com
-agent-browser highlight @e1          # Highlight element
-agent-browser record start demo.webm # Record session
-```
-
-### Local Files (PDFs, HTML)
-
-```bash
-# Open local files with file:// URLs
-agent-browser --allow-file-access open file:///path/to/document.pdf
-agent-browser --allow-file-access open file:///path/to/page.html
-agent-browser screenshot output.png
-```
-
-### iOS Simulator (Mobile Safari)
-
-```bash
-# List available iOS simulators
-agent-browser device list
-
-# Launch Safari on a specific device
-agent-browser -p ios --device "iPhone 16 Pro" open https://example.com
-
-# Same workflow as desktop - snapshot, interact, re-snapshot
-agent-browser -p ios snapshot -i
-agent-browser -p ios tap @e1          # Tap (alias for click)
-agent-browser -p ios fill @e2 "text"
-agent-browser -p ios swipe up         # Mobile-specific gesture
-
-# Take screenshot
-agent-browser -p ios screenshot mobile.png
-
-# Close session (shuts down simulator)
-agent-browser -p ios close
-```
-
-**Requirements:** macOS with Xcode, Appium (`npm install -g appium && appium driver install xcuitest`)
-
-**Real devices:** Works with physical iOS devices if pre-configured. Use `--device "<UDID>"` where UDID is from `xcrun xctrace list devices`.
+For connecting to an already-running Chrome, local `file://` PDFs/HTML, and the iOS Simulator, see [references/advanced-usage.md](references/advanced-usage.md).
 
 ## Timeouts and Slow Pages
 
@@ -221,28 +120,6 @@ agent-browser wait 5000
 ```
 
 When dealing with consistently slow websites, use `wait --load networkidle` after `open` to ensure the page is fully loaded before taking a snapshot. If a specific element is slow to render, wait for it directly with `wait <selector>` or `wait @ref`.
-
-## Session Management and Cleanup
-
-When running multiple agents or automations concurrently, always use named sessions to avoid conflicts:
-
-```bash
-# Each agent gets its own isolated session
-agent-browser --session agent1 open site-a.com
-agent-browser --session agent2 open site-b.com
-
-# Check active sessions
-agent-browser session list
-```
-
-Always close your browser session when done to avoid leaked processes:
-
-```bash
-agent-browser close                    # Close default session
-agent-browser --session agent1 close   # Close specific session
-```
-
-If a previous session was not closed properly, the daemon may still be running. Use `agent-browser close` to clean it up before starting new work.
 
 ## Ref Lifecycle (Important)
 
@@ -303,23 +180,5 @@ agent-browser eval -b "$(echo -n 'Array.from(document.querySelectorAll("a")).map
 
 | Reference | When to Use |
 |-----------|-------------|
-| [references/commands.md](references/commands.md) | Full command reference with all options |
-| [references/snapshot-refs.md](references/snapshot-refs.md) | Ref lifecycle, invalidation rules, troubleshooting |
-| [references/session-management.md](references/session-management.md) | Parallel sessions, state persistence, concurrent scraping |
-| [references/authentication.md](references/authentication.md) | Login flows, OAuth, 2FA handling, state reuse |
-| [references/video-recording.md](references/video-recording.md) | Recording workflows for debugging and documentation |
-| [references/proxy-support.md](references/proxy-support.md) | Proxy configuration, geo-testing, rotating proxies |
-
-## Ready-to-Use Templates
-
-| Template | Description |
-|----------|-------------|
-| [templates/form-automation.sh](templates/form-automation.sh) | Form filling with validation |
-| [templates/authenticated-session.sh](templates/authenticated-session.sh) | Login once, reuse state |
-| [templates/capture-workflow.sh](templates/capture-workflow.sh) | Content extraction with screenshots |
-
-```bash
-./templates/form-automation.sh https://example.com/form
-./templates/authenticated-session.sh https://app.example.com/login
-./templates/capture-workflow.sh https://example.com ./output
-```
+| [references/session-and-auth.md](references/session-and-auth.md) | Login flows, state save/load/encryption, parallel sessions, cleanup |
+| [references/advanced-usage.md](references/advanced-usage.md) | Connecting to an existing Chrome, local file:// URLs, iOS Simulator, screen recording |

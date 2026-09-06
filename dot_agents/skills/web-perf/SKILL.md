@@ -50,16 +50,13 @@ Ask the user to add this to their MCP config:
 
 ## Workflow
 
-Copy this checklist to track progress:
+Work through five phases; skip Phase 5 when auditing a third-party site without codebase access.
 
-```
-Audit Progress:
-- [ ] Phase 1: Performance trace (navigate + record)
-- [ ] Phase 2: Core Web Vitals analysis (includes CLS culprits)
-- [ ] Phase 3: Network analysis
-- [ ] Phase 4: Accessibility snapshot
-- [ ] Phase 5: Codebase analysis (skip if third-party site)
-```
+1. **Performance trace** — navigate + record
+2. **Core Web Vitals analysis** — includes CLS culprits
+3. **Network analysis**
+4. **Accessibility snapshot**
+5. **Codebase analysis** — skip if third-party site
 
 ### Phase 1: Performance Trace
 

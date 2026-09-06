@@ -59,7 +59,7 @@ Work through the authorised setup without pausing between routine inspection and
 
 9. **Worker deploy.** Run `scripts/worker-deploy.sh --name turnstile-siteverify-<project-slug>` with `WIDGET_SECRET` exported. Report the Worker URL on `status: ok`. On `set_secret_failed`, the Worker deployed but `TURNSTILE_SECRET_KEY` is not set on it; surface the error, then retry with `echo "$WIDGET_SECRET" | npx wrangler secret put TURNSTILE_SECRET_KEY --name <returned worker_name>` before running validation.
 
-10. **Frontend edits.** Apply the agreed insertion plan: add the widget and gate the existing submit handler on `success === true`, preserving its other behaviour. Show diffs when requested; do not ask for the same local-edit approval again.
+10. **Frontend edits.** Read the matching framework snippet detected in Step 6 — [references/vanilla-html.md](references/vanilla-html.md), [references/nextjs-app.md](references/nextjs-app.md), [references/nextjs-pages.md](references/nextjs-pages.md), [references/astro.md](references/astro.md), [references/sveltekit.md](references/sveltekit.md), or [references/hugo.md](references/hugo.md) — for the exact widget markup and script placement. Apply the agreed insertion plan: add the widget and gate the existing submit handler on `success === true`, preserving its other behaviour. Show diffs when requested; do not ask for the same local-edit approval again.
 
 11. **Validation.** Run `scripts/validate.sh`. Report results, diagnose failures, and fix causes within the authorised scope. Re-run affected checks after fixes. Ask only for a missing prerequisite or a decision that materially changes the plan.
 

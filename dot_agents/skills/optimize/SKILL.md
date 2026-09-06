@@ -254,6 +254,8 @@ const observer = new IntersectionObserver((entries) => {
 
 ## Verify Improvements
 
+Scope this to what the change could plausibly affect — a one-component fix doesn't need a full device/network sweep.
+
 Test that optimizations worked:
 
 - **Before/after metrics**: Compare Lighthouse scores

@@ -186,6 +186,8 @@ Choose appropriate breakpoints:
 
 ## Verify Adaptations
 
+Scope this to the contexts the change actually targets — a single-breakpoint fix doesn't need the full device/browser/OS matrix below.
+
 Test thoroughly across contexts:
 
 - **Real devices**: Test on actual phones, tablets, desktops

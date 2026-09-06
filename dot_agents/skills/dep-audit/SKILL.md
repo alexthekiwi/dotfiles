@@ -1,13 +1,12 @@
 ---
 name: dep-audit
 description: >
-  Run a dependency / supply-chain security audit on the current repo. Use when Alex says "/dep-audit",
-  "audit this repo", "check for vulnerabilities", "run a security audit", "check our dependencies",
-  "any supply-chain issues", "scan deps", or asks to do the bumps and open a security PR. Detects the
-  workspace type (Laravel/PHP, Next.js, NestJS, Statamic, Laravel+Inertia, pnpm monorepo), runs the
-  native package-manager audit, surfaces outdated deps, and reports in-chat. Can also remediate: do the
-  version bumps and open a PR in Alex's voice. Distinct from the
-  built-in /security-review, which reviews code diffs for vulnerabilities; this one audits dependencies.
+  Run a dependency / supply-chain security audit on the current repo (e.g. "/dep-audit", "audit this repo",
+  "check for vulnerabilities/outdated deps"), or remediate one when asked to do the bumps and open a
+  security PR. Detects the workspace type (Laravel/PHP, Next.js, NestJS, Statamic, Laravel+Inertia, pnpm
+  monorepo), runs the native package-manager audit, surfaces outdated deps, and reports in-chat. Distinct
+  from the built-in /security-review, which reviews code diffs for vulnerabilities; this one audits
+  dependencies.
 ---
 
 # dep-audit — dependency & supply-chain audit
