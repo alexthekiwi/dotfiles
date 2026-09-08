@@ -3,9 +3,22 @@ Host nas
     User alex
     Port 9022
 
-Host hl
-    HostName homelab
-    User alex
+# Use the local GitHub-authorized key so remote shell sessions do not depend on
+# a 1Password approval prompt on this Mac.
+Host github.com
+  HostName github.com
+  User git
+  IdentityAgent none
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/id_ed25519
+
+# SiteHost squid container — local key, skip 1Password prompt
+Host jevandmatt 120.138.18.205
+  HostName 120.138.18.205
+  User jevandmatt
+  IdentityAgent none
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/id_ed25519
 
 Host *
   IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
