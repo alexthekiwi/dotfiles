@@ -4,6 +4,8 @@ export default function modelAliases(pi) {
     luna: { spec: "@luna" },
     astra: { spec: "@astra", thinking: "medium" },
     astrahigh: { spec: "@astrahigh", thinking: "high" },
+    astraxhigh: { spec: "@astraxhigh", thinking: "xhigh" },
+    astramax: { spec: "@astramax", thinking: "max" },
     astralight: { spec: "@astralight", thinking: "low" },
     fable: { spec: "@fable", anthropicTier: "standard" },
     opus: { spec: "@opus", anthropicTier: "standard" },
