@@ -7,3 +7,9 @@
 .claude/skills/qbit-seed-cleanup
 .codex/skills/qbit-seed-cleanup
 {{ end }}
+# Homelab-only agent configuration.
+{{ if ne .chezmoi.hostname "homelab" }}
+CLAUDE.md
+.omp/agent/mcp.json
+Obsidian/caretakers-brain/Wiki
+{{ end }}

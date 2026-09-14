@@ -30,6 +30,17 @@ Use the smallest meaningful check that exercises the changed behaviour, plus che
 
 Lead with the result or decision. Use concise, plain NZ English and concrete file paths, evidence, and risks. Use lists for parallel items or steps; tables only when comparison helps. Match the depth to the task. Avoid stock headings, corporate filler, repeated summaries, and offers to do work already requested.
 
-## Local context
+## Knowledge routing
 
-The laptop is Alex's primary development machine. The homelab is the backup development machine and primarily runs household media and torrents. Development skills are shared; media operations must target the homelab explicitly. On the homelab, read `~/CLAUDE.md` and consult `~/homelab/vault/wiki/` for current operational evidence. On another machine, do not assume those local paths or services exist; establish access to the intended host first. Homelab service procedures and downtime rules do not apply to unrelated client projects.
+Route knowledge by subject before reading or writing. Each vault owns one boundary:
+
+| Scope | MacBook root | Homelab root |
+| --- | --- | --- |
+| The Caretakers' shared clients, internal operations, meetings, and project knowledge | `/Users/alex/Library/CloudStorage/SynologyDrive-Caretakers/brain` | `/Users/alex/SynologyDrive/brain` |
+| Alex's private side projects and personal business knowledge | `/Users/alex/Documents/Projects` | Not synced |
+| Private finance, company administration, tax, banking, insurance, and financial decisions | `/Users/alex/Documents/Financial` | Not synced |
+| Homelab services, media, NAS, infrastructure, incidents, and runbooks | On the `hl` SSH host at `/Users/alex/homelab/vault` | `/Users/alex/homelab/vault` |
+
+Read the selected vault's root `AGENTS.md` or `CLAUDE.md` before using its `wiki/`. Use the listed local path directly; if it is unavailable, report that vault as unavailable instead of searching other disks, NAS volumes, or SSH hosts. Cross-vault references stay read-only unless the task explicitly requires updating each owning vault. Private material never enters the shared Caretakers vault.
+
+The laptop is Alex's primary development machine. The homelab is the backup development machine and primarily runs household media and torrents. Development skills are shared; media operations must target the homelab explicitly. On the homelab, read `~/CLAUDE.md` before infrastructure work. Homelab service procedures and downtime rules do not apply to unrelated client projects.
