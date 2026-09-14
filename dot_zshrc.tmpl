@@ -8,6 +8,9 @@ fi
 # Init NVM
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+# tmux keeps one pseudo-terminal open per pane; macOS launchd's default soft
+# file-descriptor limit is too low for a multi-session setup.
+ulimit -n 65536 2>/dev/null || true
 
 export NODE_PATH=$NODE_PATH:`npm root -g`
 
@@ -153,6 +156,10 @@ alias tcu='tmux-cleanup'
 # AI
 # ----------------------------
 export OPENCODE_DISABLE_CLAUDE_CODE_SKILLS=1
+{{- if eq .chezmoi.hostname "homelab" }}
+# Cursor CLI: file store so phone SSH (Termius) does not need an unlocked login keychain
+export AGENT_CLI_CREDENTIAL_STORE=file
+{{ end }}
 
 alias c='omp --approval-mode yolo'
 alias cc='claude --dangerously-skip-permissions'
