@@ -22,45 +22,35 @@ modelRoles:
   slow: anthropic/claude-fable-5-1:high
   plan: openai-codex/gpt-6-astra:high
   task: anthropic/claude-sonnet-5:high
-  commit: cursor/composer-2.5-fast
+  commit: openai-codex/gpt-6-luna:low
   vision: anthropic/claude-fable-5-1
-  sol: openai-codex/gpt-5.6-sol:high
-  luna: openai-codex/gpt-5.6-luna:max
-  astra: openai-codex/gpt-6-astra:medium
+  solmedium: openai-codex/gpt-6-sol:medium
+  solhigh: openai-codex/gpt-6-sol:high
+  lunamax: openai-codex/gpt-6-luna:max
+  astramedium: openai-codex/gpt-6-astra:medium
   astrahigh: openai-codex/gpt-6-astra:high
+  astralight: openai-codex/gpt-6-astra:low
   astraxhigh: openai-codex/gpt-6-astra:xhigh
   astramax: openai-codex/gpt-6-astra:max
-  astralight: openai-codex/gpt-6-astra:low
-  fable: anthropic/claude-fable-5-1:high
-  opus: anthropic/claude-opus-5:high
-  sonnet: anthropic/claude-sonnet-5:high
-  composer: cursor/composer-2.5
-  composerfast: cursor/composer-2.5-fast
-  grok: cursor/cursor-grok-4.6
-  grokfast: cursor/cursor-grok-4.6-fast
+  fablehigh: anthropic/claude-fable-5-1:high
+  opusmedium: anthropic/claude-opus-5-5:medium
+  opushigh: anthropic/claude-opus-5-5:high
+  sonnethigh: anthropic/claude-sonnet-5:high
 enabledModels:
-  - openai-codex/gpt-5.6-sol
-  - openai-codex/gpt-5.6-luna
+  - openai-codex/gpt-6-sol
+  - openai-codex/gpt-6-luna
   - openai-codex/gpt-6-astra
   - anthropic/claude-fable-5
   - anthropic/claude-fable-5-1
-  - anthropic/claude-opus-5
+  - anthropic/claude-opus-5-5
   - anthropic/claude-sonnet-5
-  - cursor/composer-2.5
-  - cursor/composer-2.5-fast
-  - cursor/cursor-grok-4.6
-  - cursor/cursor-grok-4.6-fast
 cycleOrder:
-  - composerfast
-  - composer
-  - grokfast
-  - grok
-  - sonnet
-  - opus
-  - sol
-  - luna
-  - astra
-  - fable
+  - sonnethigh
+  - opushigh
+  - solhigh
+  - lunamax
+  - astramedium
+  - fablehigh
 statusLine:
   preset: custom
   separator: thin
