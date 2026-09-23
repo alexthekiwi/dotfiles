@@ -1,6 +1,3 @@
-providers:
-  webSearchOrder:
-    []
 symbolPreset: unicode
 composer:
   shape: borderless
@@ -17,7 +14,7 @@ startup:
   setupWizard: false
   showSplash: false
 modelRoles:
-  default: openai-codex/gpt-5.6-sol:high
+  default: anthropic/claude-opus-5-5
   smol: anthropic/claude-sonnet-5:low
   slow: anthropic/claude-fable-5-1:high
   plan: openai-codex/gpt-6-astra:high
