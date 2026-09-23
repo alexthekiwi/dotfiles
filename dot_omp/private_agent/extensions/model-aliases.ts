@@ -1,21 +1,21 @@
 export default function modelAliases(pi) {
+  // Mirrors modelRoles in ~/.omp/agent/config.yml. `thinking` must be explicit:
+  // resolving a role does not apply its thinking suffix.
   const aliases = {
-    sol: { spec: "@sol" },
-    luna: { spec: "@luna" },
-    astra: { spec: "@astra", thinking: "medium" },
+    solmedium: { spec: "@solmedium", thinking: "medium" },
+    solhigh: { spec: "@solhigh", thinking: "high" },
+    lunamax: { spec: "@lunamax", thinking: "max" },
+    astralight: { spec: "@astralight", thinking: "low" },
+    astramedium: { spec: "@astramedium", thinking: "medium" },
     astrahigh: { spec: "@astrahigh", thinking: "high" },
     astraxhigh: { spec: "@astraxhigh", thinking: "xhigh" },
     astramax: { spec: "@astramax", thinking: "max" },
-    astralight: { spec: "@astralight", thinking: "low" },
-    fable: { spec: "@fable", anthropicTier: "standard" },
-    opus: { spec: "@opus", anthropicTier: "standard" },
-    opusfast: { spec: "@opus", anthropicTier: "priority" },
-    sonnet: { spec: "@sonnet", anthropicTier: "standard" },
-    sonnetfast: { spec: "@sonnet", anthropicTier: "priority" },
-    composer: { spec: "@composer" },
-    composerfast: { spec: "@composerfast" },
-    grok: { spec: "@grok" },
-    grokfast: { spec: "@grokfast" },
+    fablehigh: { spec: "@fablehigh", thinking: "high", anthropicTier: "standard" },
+    opusmedium: { spec: "@opusmedium", thinking: "medium", anthropicTier: "standard" },
+    opushigh: { spec: "@opushigh", thinking: "high", anthropicTier: "standard" },
+    opusfast: { spec: "@opushigh", thinking: "high", anthropicTier: "priority" },
+    sonnethigh: { spec: "@sonnethigh", thinking: "high", anthropicTier: "standard" },
+    sonnetfast: { spec: "@sonnethigh", thinking: "high", anthropicTier: "priority" },
   };
 
   for (const [name, config] of Object.entries(aliases)) {
