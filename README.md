@@ -7,7 +7,7 @@ Managed with [chezmoi](https://www.chezmoi.io/).
 ### 1. Install dependencies
 
 ```bash
-brew install neovim lazygit ripgrep fd fzf node tmux thefuck
+brew install neovim lazygit ripgrep fd fzf node tmux thefuck rmtrash
 brew install --cask font-jetbrains-mono-nerd-font
 brew install chezmoi
 ```
@@ -68,6 +68,17 @@ exit
 ```bash
 chezmoi diff
 ```
+
+## Safer interactive `rm`
+
+`~/.local/bin/rm` is on the PATH in `.zshrc`. It blocks the literal targets
+`$HOME`, `$HOME/`, `/`, `/Users`, and `/Users/` (exit 64), then forwards all
+other arguments to Homebrew's `rmtrash`, which moves files into macOS Trash.
+Install `rmtrash` on each Mac before using the wrapper.
+
+This is a guard against common typos, not a sandbox: other path spellings,
+absolute `/bin/rm`, and programs that don't use the interactive shell's PATH
+can still delete files permanently.
 
 ## Agent Skills
 

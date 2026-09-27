@@ -1,0 +1,11 @@
+#!/bin/zsh
+for arg in "$@"; do
+    case "$arg" in
+        "$HOME"|"$HOME/"|"/"|"/Users"|"/Users/")
+            printf 'rm: BLOCKED dangerous target: %s\n' "$arg" >&2
+            exit 64
+            ;;
+    esac
+done
+
+exec "$(command -v rmtrash)" "$@"
