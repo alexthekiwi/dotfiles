@@ -16,6 +16,8 @@ export default function modelAliases(pi) {
     opusfast: { spec: "@opushigh", thinking: "high", anthropicTier: "priority" },
     sonnethigh: { spec: "@sonnethigh", thinking: "high", anthropicTier: "standard" },
     sonnetfast: { spec: "@sonnethigh", thinking: "high", anthropicTier: "priority" },
+    sonnet55high: { spec: "@sonnet55high", thinking: "high", anthropicTier: "standard" },
+    sonnet55fast: { spec: "@sonnet55high", thinking: "high", anthropicTier: "priority" },
   };
 
   for (const [name, config] of Object.entries(aliases)) {

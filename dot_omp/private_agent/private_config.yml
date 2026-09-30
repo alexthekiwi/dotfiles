@@ -18,7 +18,7 @@ modelRoles:
   smol: anthropic/claude-sonnet-5:low
   slow: anthropic/claude-fable-5-1:high
   plan: openai-codex/gpt-6-astra:high
-  task: anthropic/claude-sonnet-5:high
+  task: anthropic/claude-sonnet-5-5:high
   commit: openai-codex/gpt-6-luna:low
   vision: anthropic/claude-fable-5-1
   solmedium: openai-codex/gpt-6-sol:medium
@@ -33,6 +33,7 @@ modelRoles:
   opusmedium: anthropic/claude-opus-5-5:medium
   opushigh: anthropic/claude-opus-5-5:high
   sonnethigh: anthropic/claude-sonnet-5:high
+  sonnet55high: anthropic/claude-sonnet-5-5:high
 enabledModels:
   - openai-codex/gpt-6-sol
   - openai-codex/gpt-6-luna
@@ -41,7 +42,9 @@ enabledModels:
   - anthropic/claude-fable-5-1
   - anthropic/claude-opus-5-5
   - anthropic/claude-sonnet-5
+  - anthropic/claude-sonnet-5-5
 cycleOrder:
+  - sonnet55high
   - sonnethigh
   - opushigh
   - solhigh
