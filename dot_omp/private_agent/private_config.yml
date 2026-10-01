@@ -21,8 +21,8 @@ modelRoles:
   task: anthropic/claude-sonnet-5-5:high
   commit: openai-codex/gpt-6-luna:low
   vision: anthropic/claude-fable-5-1
-  solmedium: openai-codex/gpt-6-sol:medium
-  solhigh: openai-codex/gpt-6-sol:high
+  solmedium: openai-codex/gpt-6.1-sol:medium
+  solhigh: openai-codex/gpt-6.1-sol:high
   lunamax: openai-codex/gpt-6-luna:max
   astramedium: openai-codex/gpt-6-astra:medium
   astrahigh: openai-codex/gpt-6-astra:high
@@ -35,7 +35,7 @@ modelRoles:
   sonnethigh: anthropic/claude-sonnet-5:high
   sonnet55high: anthropic/claude-sonnet-5-5:high
 enabledModels:
-  - openai-codex/gpt-6-sol
+  - openai-codex/gpt-6.1-sol
   - openai-codex/gpt-6-luna
   - openai-codex/gpt-6-astra
   - anthropic/claude-fable-5
