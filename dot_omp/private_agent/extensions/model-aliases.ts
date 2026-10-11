@@ -18,6 +18,11 @@ export default function modelAliases(pi) {
     sonnetfast: { spec: "@sonnethigh", thinking: "high", anthropicTier: "priority" },
     sonnet55high: { spec: "@sonnet55high", thinking: "high", anthropicTier: "standard" },
     sonnet55fast: { spec: "@sonnet55high", thinking: "high", anthropicTier: "priority" },
+    haikulow: { spec: "@haikulow", thinking: "low", anthropicTier: "standard" },
+    haikumedium: { spec: "@haikumedium", thinking: "medium", anthropicTier: "standard" },
+    haikuhigh: { spec: "@haikuhigh", thinking: "high", anthropicTier: "standard" },
+    haikuxhigh: { spec: "@haikuxhigh", thinking: "xhigh", anthropicTier: "standard" },
+    haikumax: { spec: "@haikumax", thinking: "max", anthropicTier: "standard" },
   };
 
   for (const [name, config] of Object.entries(aliases)) {

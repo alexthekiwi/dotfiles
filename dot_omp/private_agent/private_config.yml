@@ -34,6 +34,11 @@ modelRoles:
   opushigh: anthropic/claude-opus-5-5:high
   sonnethigh: anthropic/claude-sonnet-5:high
   sonnet55high: anthropic/claude-sonnet-5-5:high
+  haikulow: anthropic/claude-haiku-5-5:low
+  haikumedium: anthropic/claude-haiku-5-5:medium
+  haikuhigh: anthropic/claude-haiku-5-5:high
+  haikuxhigh: anthropic/claude-haiku-5-5:xhigh
+  haikumax: anthropic/claude-haiku-5-5:max
 enabledModels:
   - openai-codex/gpt-6.1-sol
   - openai-codex/gpt-6-luna
@@ -43,6 +48,7 @@ enabledModels:
   - anthropic/claude-opus-5-5
   - anthropic/claude-sonnet-5
   - anthropic/claude-sonnet-5-5
+  - anthropic/claude-haiku-5-5
 cycleOrder:
   - sonnet55high
   - sonnethigh
