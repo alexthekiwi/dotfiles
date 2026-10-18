@@ -1,5 +1,8 @@
 # Opt-in overlay: adds Matt Pocock's skills (and lookalikes) for greenfield work.
 # Use: c-greenfield   (= omp --approval-mode yolo --config ~/.omp/agent/overlays/greenfield.yml)
+# omp replaces arrays from overlays rather than merging them, so this list repeats the base
+# customDirectories (pstack-omp) and adds Pocock.
 skills:
   customDirectories:
+    - /Users/alex/.agents/pstack-omp
     - /Users/alex/.agents/optional/pocock

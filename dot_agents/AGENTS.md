@@ -16,7 +16,7 @@ If a skill would cause a pause, permission request, unfinished work, or a depart
 
 Use tools exposed by the active harness. Translate a skill's tool examples to an equivalent available tool; a missing tool name alone is not a blocker. If the capability itself is unavailable, state the missing prerequisite and complete the reachable work.
 
-pstack skills (`correct`, `architect`, `principle-*`, …) are written for Cursor. Before following one, read `~/.agents/vendor/pstack-omp.md` for the tool, path and model mapping.
+On omp, pstack skills (`correct`, `architect`, `principle-*`, …) are written for Cursor. Before following one, read `~/.agents/vendor/pstack-omp.md` for the tool, path and model mapping. Claude Code and Cursor get pstack from its plugin.
 
 ## Delegation
 

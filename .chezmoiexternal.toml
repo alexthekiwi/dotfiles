@@ -1,0 +1,7 @@
+# pstack (cursor/plugins), pinned. To re-pin, change the commit in the URL and run `chezmoi apply`.
+[".agents/vendor/pstack"]
+    type = "archive"
+    url = "https://codeload.github.com/cursor/plugins/tar.gz/101b274dd991f694e1f7024be2157e5f3adf07de"
+    exact = true
+    stripComponents = 1
+    include = ["*/pstack", "*/pstack/**"]

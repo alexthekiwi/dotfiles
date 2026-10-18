@@ -93,3 +93,7 @@ dev:
   autoqaConsent: granted
 codexResets:
   autoRedeem: "yes"
+skills:
+  enableClaudeProject: false
+  customDirectories:
+    - /Users/alex/.agents/pstack-omp
