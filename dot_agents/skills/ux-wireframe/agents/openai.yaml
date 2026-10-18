@@ -1,0 +1,4 @@
+interface:
+  display_name: "UX Wireframe"
+  short_description: "Clickable lo-fi wireframe from client notes via a guided questionnaire"
+  default_prompt: "Use $ux-wireframe to build a clickable wireframe for the client from our wiki notes."

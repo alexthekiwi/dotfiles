@@ -16,6 +16,8 @@ If a skill would cause a pause, permission request, unfinished work, or a depart
 
 Use tools exposed by the active harness. Translate a skill's tool examples to an equivalent available tool; a missing tool name alone is not a blocker. If the capability itself is unavailable, state the missing prerequisite and complete the reachable work.
 
+pstack skills (`correct`, `architect`, `principle-*`, …) are written for Cursor. Before following one, read `~/.agents/vendor/pstack-omp.md` for the tool, path and model mapping.
+
 ## Delegation
 
 Delegate independent, substantial slices when parallel execution or a separate review improves the result. Keep small changes inline. Give workers the goal, relevant context, exact ownership, shared interfaces, and acceptance criteria. Keep dependent work serial and one owner for shared-file edits. Integrate and verify the combined result; do not have concurrent workers run overlapping project-wide checks.
@@ -42,5 +44,7 @@ Route knowledge by subject before reading or writing. Each vault owns one bounda
 | Homelab services, media, NAS, infrastructure, incidents, and runbooks | On the `hl` SSH host at `/Users/alex/homelab/vault` | `/Users/alex/homelab/vault` |
 
 Read the selected vault's root `AGENTS.md` or `CLAUDE.md` before using its `wiki/`. Use the listed local path directly; if it is unavailable, report that vault as unavailable instead of searching other disks, NAS volumes, or SSH hosts. Cross-vault references stay read-only unless the task explicitly requires updating each owning vault. Private material never enters the shared Caretakers vault.
+
+Exception: InsureOS domain knowledge (incidents, integrations, decisions, contracts) lives in the insureos repo's own `brain/` (`/Users/alex/Code/insureos/brain`). Read and update it there, following `brain/AGENTS.md`, not the Caretakers vault.
 
 The laptop is Alex's primary development machine. The homelab is the backup development machine and primarily runs household media and torrents. Development skills are shared; media operations must target the homelab explicitly. On the homelab, read `~/CLAUDE.md` before infrastructure work. Homelab service procedures and downtime rules do not apply to unrelated client projects.

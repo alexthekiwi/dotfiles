@@ -86,8 +86,10 @@ statusLine:
       showUnstaged: true
       showUntracked: false
 spelling:
-  autocomplete: false
+  autocomplete: "off"
   typoDetection: false
 emojiAutocomplete: false
 dev:
   autoqaConsent: granted
+codexResets:
+  autoRedeem: "yes"

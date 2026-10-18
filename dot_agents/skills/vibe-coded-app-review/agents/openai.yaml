@@ -1,0 +1,5 @@
+interface:
+  display_name: "Vibe Coded App Review"
+  short_description: "Review AI-built apps before launch or growth"
+  brand_color: "#4A9B8E"
+  default_prompt: "Use $vibe-coded-app-review to run a time-boxed, evidence-backed review of this application and produce a plain-English client report."

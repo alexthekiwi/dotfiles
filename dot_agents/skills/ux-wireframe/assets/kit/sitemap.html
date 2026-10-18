@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Site map · Wireframe</title><link rel="stylesheet" href="assets/wf.css">
+<style>
+  .tree { list-style: none; padding: 0; margin: 0; }
+  .tree ul { list-style: none; margin: 6px 0 0 18px; padding: 0 0 0 14px; border-left: 1px solid var(--hair); }
+  .tree li { margin: 6px 0; }
+  .tree a { font-weight: 600; }
+  .tree .d { color: var(--mid); font-size: 13px; font-weight: 400; }
+  .map-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .journey { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 8px 0 0; }
+  .journey li + li::before { content: "→"; margin-right: 6px; color: var(--mid); }
+  .journey a, .journey span { border: 1.5px solid var(--line); border-radius: var(--radius); padding: 4px 10px; font-size: 13px; text-decoration: none; display: inline-block; }
+  @media (max-width: 860px) { .map-cols { grid-template-columns: 1fr; } }
+</style></head>
+<body data-page="sitemap">
+<div id="wf-header"></div>
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span>Site map</span></nav>
+  <h1>Site map and review guide</h1>
+  <p style="max-width:760px">A low-fidelity, unbranded wireframe for agreeing structure, navigation, page modules and journeys before visual design. Use the bar at the bottom to switch review states and show or hide notes (yellow: decisions; outlined: open questions).</p>
+  <div class="msg" style="max-width:760px"><strong>Everything here is placeholder</strong>Names, numbers and copy are illustrative.</div>
+
+  <section class="section">
+    <h2>Site map</h2>
+    <div class="map-cols">
+      <div class="box"><h3>Main navigation</h3><ul class="tree">
+        <li><a href="index.html">Home</a> <span class="d">role of the page</span>
+          <ul><li><a href="#">Child page</a> <span class="d">note</span></li></ul></li>
+      </ul></div>
+      <div class="box"><h3>Utility and transactional</h3><ul class="tree"><li><a href="#">Page</a></li></ul></div>
+      <div class="box"><h3>Signed-in area</h3><ul class="tree"><li><a href="#">Page</a></li></ul></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Journeys to click through</h2>
+    <div class="grid g2">
+      <div class="box"><h3>1. Who, doing what</h3>
+        <ol class="journey"><li><a href="index.html">Home</a></li><li><span>Step</span></li><li><span>Outcome</span></li></ol></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="grid g2" style="gap:32px">
+      <div><h2>Decisions reflected here</h2><ul><li>Decision, with its source.</li></ul></div>
+      <div><h2>Open questions</h2><ol><li><strong>Topic:</strong> the question and who decides.</li></ol>
+        <h3 style="margin-top:20px">Assumptions we made</h3><ul><li>Assumption, and how to reverse it.</li></ul>
+        <div class="box dashed small" style="margin-top:16px"><strong>Not in this wireframe:</strong> list what is deliberately out.</div></div>
+    </div>
+  </section>
+</main>
+<div id="wf-footer"></div>
+<script src="assets/site.js"></script><script src="assets/wf.js"></script>
+</body></html>

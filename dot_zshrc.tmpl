@@ -170,6 +170,8 @@ export AGENT_CLI_CREDENTIAL_STORE=file
 {{ end }}
 
 alias c='omp --approval-mode yolo'
+# Opt-in Pocock skills (greenfield work); default c leaves them out.
+alias c-greenfield='omp --approval-mode yolo --config /Users/alex/.omp/agent/overlays/greenfield.yml'
 alias cc='claude --dangerously-skip-permissions'
 alias claudex='CLAUDE_CODE_SUBAGENT_MODEL=gpt-5.6-terra CLAUDE_CODE_ALWAYS_ENABLE_EFFORT=1 CLAUDE_CODE_MAX_TOOL_USE_CONCURRENCY=3 ENABLE_TOOL_SEARCH=false node "$HOME/Code/claude-proxy/bin/claude-codex.js" -d'
 alias ccx='CLAUDE_CODE_SUBAGENT_MODEL=gpt-5.6-terra CLAUDE_CODE_ALWAYS_ENABLE_EFFORT=1 CLAUDE_CODE_MAX_TOOL_USE_CONCURRENCY=3 ENABLE_TOOL_SEARCH=false node "$HOME/Code/claude-proxy/bin/claude-codex.js" -d'
@@ -415,3 +417,8 @@ export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 # Herd injected PHP 8.5 configuration.
 export HERD_PHP_85_INI_SCAN_DIR="/Users/alex/Library/Application Support/Herd/config/php/85/"
+
+# devkitPro (GBA dev / pokeemerald)
+export DEVKITPRO=/opt/devkitpro
+export DEVKITARM=$DEVKITPRO/devkitARM
+export DEVKITPPC=$DEVKITPRO/devkitPPC
