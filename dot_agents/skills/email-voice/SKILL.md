@@ -54,11 +54,8 @@ Kind Regards,
 Alex Clark
 Technical Director
 
-/ 141 Picton St / Howick 2014
-/ Auckland / New Zealand
-/ 022 020 8262
-
-/ caretakers.io
++64 22 020 8262
+caretakers.io
 ```
 
 (Link `caretakers.io` to https://caretakers.io/ when the draft is HTML-capable. Bold his name if the channel supports it. Do not invent extra lines.)
