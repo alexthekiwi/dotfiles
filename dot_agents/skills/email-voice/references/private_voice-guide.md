@@ -68,7 +68,7 @@ When explaining technical concepts to non-technical people, he explains what hap
 ### Action-Oriented
 Most emails end with a clear next step, a direct question, or an open invitation. Real examples:
 - "Any questions at all, or if anything doesn't come through as expected, just let me know."
-- "Any q's, just let me know."
+- "Any q's, just let me know." (he does use it, but rarely; don't default to it)
 - "Have a read and let me know what you think."
 - "Once you've had a read, happy to jump on a call and talk through the recommendations with you."
 - "Happy to catch up in-person or on a call, whichever suits you."
@@ -115,7 +115,7 @@ When something just needs a fast acknowledgement, he keeps it genuinely short:
 - "Nah nothing here will affect us, cheers for forwarding."
 
 ### Sign-off
-Do NOT include "Kind Regards," or any signature block in drafted emails. Alex's Gmail automatically appends his full signature (Kind Regards + name + title + contact details). Just end the email body naturally after the last sentence.
+End the body naturally after the last sentence, then add the exact signature block for that mailbox from `SKILL.md` (Signatures). Gmail does not add his signature to drafts made through a connector or a draft card.
 
 ## Word Choice & Phrasing
 
@@ -126,7 +126,7 @@ Do NOT include "Kind Regards," or any signature block in drafted emails. Alex's 
 - "Legend"
 - "Sweet!" / "Awesome" / "Perfect, thanks!"
 - "just let me know" / "let me know if any other q's"
-- "Any q's, just let me know." / "Any q's, just let us know."
+- "Any q's, just let me know." / "Any q's, just let us know." (rare; never a default closer, and never after a question)
 - "keen to hear your thoughts" / "keen to know if that works"
 - "happy to help" / "happy to chat" / "happy to jump on a call"
 - "from my side" / "from our side"
