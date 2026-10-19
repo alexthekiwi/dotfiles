@@ -196,8 +196,7 @@ All *arr stack + Jellyfin + Bazarr configs use Docker named volumes (not bind mo
 ├── apps/
 │   ├── shed/               # The Shed (pm2, ecosystem.config.cjs, deploy.sh)
 │   ├── uptime-kuma/        # Uptime Kuma (pm2)
-│   ├── claude-proxy/       # Claude CLI proxy (launchd)
-│   └── openclaw-viewer/
+│   └── claude-proxy/       # Claude CLI proxy (launchd)
 ├── docs/
 │   ├── README.md           # Full architecture docs + troubleshooting index
 │   └── troubleshooting/    # Historical incident docs (date-prefixed)
