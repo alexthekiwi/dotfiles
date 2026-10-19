@@ -35,15 +35,16 @@ Lead with the result or decision. Use concise, plain NZ English and concrete fil
 ## Knowledge routing
 
 Route knowledge by subject before reading or writing. Each vault owns one boundary:
+Select the column for the host executing tools, not the laptop that opened the SSH session. When the host is unclear, run `hostname` first: `homelab.local` is the Homelab root. On that host, use `/Users/alex/homelab/vault` directly; do not SSH back into it.
 
 | Scope | MacBook root | Homelab root |
 | --- | --- | --- |
 | The Caretakers' shared clients, internal operations, meetings, and project knowledge | `/Users/alex/Library/CloudStorage/SynologyDrive-Caretakers/brain` | `/Users/alex/SynologyDrive/brain` |
 | Alex's private side projects and personal business knowledge | `/Users/alex/Documents/Projects` | Not synced |
 | Private finance, company administration, tax, banking, insurance, and financial decisions | `/Users/alex/Documents/Financial` | Not synced |
-| Homelab services, media, NAS, infrastructure, incidents, and runbooks | On the `hl` SSH host at `/Users/alex/homelab/vault` | `/Users/alex/homelab/vault` |
+| Homelab services, media, NAS, infrastructure, incidents, and runbooks | Via SSH to `hl`, at `/Users/alex/homelab/vault` | Local `/Users/alex/homelab/vault` |
 
-Read the selected vault's root `AGENTS.md` or `CLAUDE.md` before using its `wiki/`. Use the listed local path directly; if it is unavailable, report that vault as unavailable instead of searching other disks, NAS volumes, or SSH hosts. Cross-vault references stay read-only unless the task explicitly requires updating each owning vault. Private material never enters the shared Caretakers vault.
+Read the selected vault's root `AGENTS.md` or `CLAUDE.md` before using its `wiki/`. On the homelab, use the listed local path; from the MacBook, use SSH only for the homelab vault. If a listed vault is unavailable, report it instead of searching other disks, NAS volumes, or unlisted SSH hosts. Cross-vault references stay read-only unless the task explicitly requires updating each owning vault. Private material never enters the shared Caretakers vault.
 
 Exception: InsureOS domain knowledge (incidents, integrations, decisions, contracts) lives in the insureos repo's own `brain/` (`/Users/alex/Code/insureos/brain`). Read and update it there, following `brain/AGENTS.md`, not the Caretakers vault.
 
