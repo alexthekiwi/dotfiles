@@ -9,17 +9,28 @@ allowed-tools: Bash(ssh:*), Bash(grep:*), Bash(cat:*), Bash(tail:*), Bash(head:*
 ## SiteHost API
 
 Base URL: `https://api.sitehost.nz/1.5/`
-All endpoints use GET with query params. Always include `apikey` and `client_id`.
+Most endpoints use GET with query params; a few (e.g. `server/change_state`) are POST with form fields. Always include `apikey` and `client_id`. Endpoint reference: https://docs.sitehost.nz/api/v1.5/ (`?path=/server/change_state&action=POST` style URLs show parameters).
 
 Read credentials from the active environment or the machine-local, untracked `~/.config/sitehost/credentials.env` (owner-only permissions). If neither is configured, ask for secure provisioning; never request or print the key in chat or store it in a skill.
 
+The API key only accepts requests from the Caretakers bastion's IP. Calls from anywhere else fail with `Unauthorised. You cannot use this Api Key from your location.` Route API calls through a SOCKS tunnel to the `bastion` SSH host so the key stays local and the bastion only relays TLS:
+
 ```bash
 # Load only if SITEHOST_API_KEY / SITEHOST_CLIENT_ID are not already set.
-source ~/.config/sitehost/credentials.env
+set -a; source ~/.config/sitehost/credentials.env; set +a
+
+# Open the tunnel (long-running; stop it when done)
+ssh -N -D 127.0.0.1:1080 -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 bastion
 
 # Common curl pattern
-curl -s "https://api.sitehost.nz/1.5/{endpoint}?apikey=${SITEHOST_API_KEY}&client_id=${SITEHOST_CLIENT_ID}&{params}"
+curl -s --socks5-hostname 127.0.0.1:1080 "https://api.sitehost.nz/1.5/{endpoint}?apikey=${SITEHOST_API_KEY}&client_id=${SITEHOST_CLIENT_ID}&{params}"
+
+# POST pattern (form body on stdin keeps the key out of argv)
+printf 'apikey=%s&client_id=%s&name=%s&state=%s' "$SITEHOST_API_KEY" "$SITEHOST_CLIENT_ID" ch-care-01 reboot \
+  | curl -s --socks5-hostname 127.0.0.1:1080 -X POST --data-binary @- https://api.sitehost.nz/1.5/server/change_state.json
 ```
+
+All example `curl` commands below assume the `--socks5-hostname 127.0.0.1:1080` flag.
 
 ### Discovery Workflow
 
@@ -57,6 +68,8 @@ The `label` field contains the domain name. The container image tells you the st
 | `cloud/ssh/user/get.json` | GET | `server_name`, `username` | Get SSH user details |
 | `cloud/stack/environment/get.json` | GET | `server`, `project`, `service` | Get env vars for a stack |
 | `server/list_servers.json` | GET | (none) | List all servers |
+| `server/get_state.json` | GET | `name` | Server power state (`On` even when the host is unresponsive) |
+| `server/change_state.json` | POST | `name`, `state` (`power_on`, `power_off`, `reboot`, `rescue_on`, `rescue_off`) | Reboot/power a whole server. Restarts every container on it; needs explicit user approval |
 
 ### Servers
 
@@ -80,6 +93,14 @@ ssh -T {user}@{server_ip} 'cmd1 && cmd2'
 Server IPs:
 - care-01: `223.165.64.179`
 - squid: `120.138.18.205`
+
+### Never fan out SSH across many containers
+
+Each SiteHost SSH user has its own image, and every login appears to start a login container on the host. On 2026-10-22 two SSH sweeps across care-01 (first 12 parallel, then ~25 serial logins) took the whole server offline twice: ports open, SSH stuck at banner exchange, every site timing out, API still reporting `On`/`Up`. Both times only a reboot recovered it.
+
+- For multi-site inventory (image versions, PHP versions, states), use the API: containers on the same image tag run the same software, so verify one container per tag.
+- Use HTTPS (`curl -o /dev/null -w '%{http_code}'`) for availability checks.
+- When SSH is genuinely needed, use one session at a time to the specific site and stop at the first banner timeout.
 
 ## Container Filesystem
 
