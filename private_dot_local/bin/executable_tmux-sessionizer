@@ -1,23 +1,47 @@
 #!/usr/bin/env bash
+# Usage:
+#   tmux-sessionizer              pick a project dir with fzf, open or switch to its session
+#   tmux-sessionizer <dir|name>   same, for that dir (a name is fuzzy-matched like the picker)
+#   tmux-sessionizer -d <dir|name>
+#       detached: create the session if it's missing, print its name, and don't switch
+#       any client or touch the picker history. For agents (e.g. Ada) running outside tmux.
 
 HISTORY_FILE="$HOME/.local/share/tmux-sessionizer-history"
 touch "$HISTORY_FILE"
 
-if [[ $# -eq 1 ]]; then
-    selected=$1
-else
-    # Extra non-Code dirs to make sessionizable (scratch/reading dirs).
-    # Only included if they exist — keeps the list clean on machines (e.g. the
-    # Mac Mini) where the Synology wiki mount isn't present.
-    extra_dirs=(
+detached=0
+if [[ ${1:-} == "-d" ]]; then
+    detached=1
+    shift
+fi
+
+# Every dir the picker offers: ~/Code projects plus extra non-Code dirs
+# (scratch/reading dirs). Extras are only included if they exist — keeps the
+# list clean on machines (e.g. the Mac Mini) where the Synology wiki mount isn't present.
+candidate_dirs() {
+    local extra_dirs=(
         "$HOME/Downloads"
         "$HOME/Library/CloudStorage/SynologyDrive-Caretakers/brain/wiki"
     )
-    existing_extra=()
+    local existing_extra=() d
     for d in "${extra_dirs[@]}"; do
         [[ -d $d ]] && existing_extra+=("$d")
     done
-    all_dirs=$( { find ~/Code -mindepth 1 -maxdepth 1 -type d; printf '%s\n' "${existing_extra[@]}"; } | sort)
+    { find ~/Code -mindepth 1 -maxdepth 1 -type d; printf '%s\n' "${existing_extra[@]}"; } | sort
+}
+
+if [[ $# -eq 1 ]]; then
+    selected=$1
+    if [[ ! -d $selected ]]; then
+        # Exact project name first, then the best fuzzy match, as the picker would rank it.
+        if [[ -d "$HOME/Code/$selected" ]]; then
+            selected="$HOME/Code/$selected"
+        else
+            selected=$(candidate_dirs | fzf --filter "$1" | head -n 1)
+        fi
+    fi
+else
+    all_dirs=$(candidate_dirs)
     # Dirs ordered by most recently sessionized (most recent last).
     # Filter to dirs that still exist so deleted/trashed paths (which would
     # otherwise resurrect a stale same-named session) never appear.
@@ -29,12 +53,13 @@ else
     selected=$(printf '%s\n%s' "$unranked" "$(echo "$ranked" | tac)" | grep -v '^$' | fzf --tac)
 fi
 
-if [[ -z $selected ]]; then
+if [[ -z $selected || ! -d $selected ]]; then
+    [[ $detached -eq 1 ]] && { echo "tmux-sessionizer: no project matches '${1:-}'" >&2; exit 1; }
     exit 0
 fi
 
-# Log this selection
-echo "$selected" >> "$HISTORY_FILE"
+# Log this selection (only Alex's own picks shape the picker order)
+[[ $detached -eq 0 ]] && echo "$selected" >> "$HISTORY_FILE"
 
 selected_name=$(basename "$selected" | tr . _)
 
@@ -50,4 +75,8 @@ if ! tmux has-session -t="$selected_name" 2> /dev/null; then
     tmux select-window -t "$selected_name:code"
 fi
 
-tmux switch-client -t "$selected_name"
+if [[ $detached -eq 1 ]]; then
+    echo "$selected_name"
+else
+    tmux switch-client -t "$selected_name"
+fi
