@@ -106,4 +106,28 @@ Default for an unknown person: "Hey [First]," then two to five sentences, answer
    - Signature present and matching the mailbox?
    - Reads like the samples, not like AI? Warm without filler?
    - Body ends with a clear next step, question, or invitation specific to this email, not a stock "Any q's" line?
-5. Present it as a draft for Alex to review. Never send until he says to. If the email creates a next action, ask before adding a Shed todo.
+5. Present it as a draft for Alex to review, and deliver it (below). Never send until he says to. If the email creates a next action, ask before adding a Shed todo.
+
+## Delivering the draft
+
+Text copied out of a terminal comes with hard line wraps and leading spaces, so never make Alex copy a draft from your reply.
+
+**Default: the clipboard.** Show the draft in your reply so he can read it, and also put it on his clipboard as plain text: each paragraph on one line, blank lines between paragraphs, no Markdown (no `**`, `#` or `>`), signature included. Write the body to a temp file first, then:
+
+```sh
+printf '\033]52;c;%s\a' "$(base64 < /tmp/draft.txt | tr -d '\n')" > /dev/tty
+```
+
+This works on the laptop and in a Herdr terminal on another machine (hl): Herdr passes it through to his local clipboard. If `/dev/tty` isn't available and you're on his laptop, use `pbcopy < /tmp/draft.txt` instead. Tell him in one line that it's on his clipboard, with the subject line and recipients for him to fill in.
+
+**When he asks for a Gmail draft:** create it with `gog`, in the mailbox chosen above.
+
+```sh
+gog gmail drafts create --gmail-no-send --account <mailbox> \
+  --to <addresses> [--cc <addresses>] --subject "<subject>" --body-file /tmp/draft.txt
+```
+
+- A reply goes in its thread: find the message with `gog gmail search`, then pass `--reply-to-message-id <id>` (add `--reply-all` when he's replying to everyone). Keep his subject unless he says otherwise.
+- Attachments: `--attach <path>`, repeatable.
+- Always pass `--gmail-no-send`. Never run `gog gmail send`, or `drafts send`, unless he says to send it in this conversation.
+- Tell him the draft is in Gmail, which mailbox it's in, and who it's addressed to.
