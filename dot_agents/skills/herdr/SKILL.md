@@ -20,6 +20,7 @@ The installed manuals are current; trust them over this file when they differ. T
 - Start omp with argv `["omp", "--approval-mode", "yolo"]`. Launchers don't expand shell aliases, so `c` won't work. For greenfield work Alex may ask for `--config /Users/alex/.omp/agent/overlays/greenfield.yml`.
 - Pass a first message only when Alex gave one. Otherwise start omp idle.
 - Create tabs and spaces only when asked, and give each a clear name.
+- Never steal focus. Alex is usually typing in another tab. In the app, `tab.new`, `space.new` and `terminal.keep` all switch the window to what they create, and there's no option to stop it. So record `herdr-app status` (`.space`, `.tab`) first, and straight after creating, `herdr-app do tab.select --id <that tab>` to put him back. Skip the restore only when he asked to be taken there. TUI: always pass `--no-focus`.
 - Never close tabs, spaces or workspaces, or kill agents, that you didn't create unless Alex asks. Closing a tab or space ends its agents. Never stop the app, herdr-core or the TUI server.
 - Background helpers (`hc run --bg`, `herdr agent prompt --wait`) only when Alex asks for delegation.
 - Machines: `hl` is the homelab. Create spaces there with `--machine hl`. Raw `hc run --on hl omp` fails because `~/.local/bin` isn't on its PATH; use `zsh -lic omp` or `/Users/alex/.local/bin/omp`. App `--argv` launches are fine.
@@ -28,14 +29,17 @@ The installed manuals are current; trust them over this file when they differ. T
 
 ```sh
 herdr-app ls    # space and tab IDs; reuse these, don't guess
+back=$(herdr-app status | jq -r .tab)    # where Alex is now
 
-# New omp tab in an existing space
+# New omp tab in an existing space, then put Alex back
 herdr-app do tab.new --space <space-id> --name "<task>" --folder <repo-or-worktree> \
   --argv '["omp","--approval-mode","yolo"]' [--task "<first message>"]
+herdr-app do tab.select --id "$back"
 
-# New project space (only when none exists)
+# New project space (only when none exists), then put Alex back
 herdr-app do space.new --name <project> --folder <path> [--machine hl] \
   --tab "<task>" --argv '["omp","--approval-mode","yolo"]'
+herdr-app do tab.select --id "$back"
 ```
 
 ## Herdr TUI recipes
