@@ -1,0 +1,12 @@
+#!/bin/sh
+# gog with its file-keyring password read from macOS Keychain, so agents can
+# use gog without a TTY and without the password sitting in their environment.
+# Only this gog process sees it. Store or change the password with:
+#   security add-generic-password -U -a "$USER" -s gogcli-keyring-password -w
+# Without that Keychain item (e.g. on hl) this behaves like plain gog.
+if [ -z "${GOG_KEYRING_PASSWORD:-}" ] &&
+  pw=$(security find-generic-password -a "$USER" -s gogcli-keyring-password -w 2>/dev/null); then
+  GOG_KEYRING_PASSWORD=$pw
+  export GOG_KEYRING_PASSWORD
+fi
+exec /opt/homebrew/bin/gog "$@"
