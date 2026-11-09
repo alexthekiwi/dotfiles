@@ -2,27 +2,16 @@ export default function modelAliases(pi) {
   // Mirrors modelRoles in ~/.omp/agent/config.yml. `thinking` must be explicit:
   // resolving a role does not apply its thinking suffix.
   const aliases = {
-    solmedium: { spec: "@solmedium", thinking: "medium" },
-    solhigh: { spec: "@solhigh", thinking: "high" },
-    lunamax: { spec: "@lunamax", thinking: "max" },
-    astralight: { spec: "@astralight", thinking: "low" },
-    astramedium: { spec: "@astramedium", thinking: "medium" },
-    astrahigh: { spec: "@astrahigh", thinking: "high" },
-    astraxhigh: { spec: "@astraxhigh", thinking: "xhigh" },
-    astramax: { spec: "@astramax", thinking: "max" },
-    fablehigh: { spec: "@fablehigh", thinking: "high", anthropicTier: "standard" },
     opusmedium: { spec: "@opusmedium", thinking: "medium", anthropicTier: "standard" },
     opushigh: { spec: "@opushigh", thinking: "high", anthropicTier: "standard" },
     opusfast: { spec: "@opushigh", thinking: "high", anthropicTier: "priority" },
+    fablehigh: { spec: "@fablehigh", thinking: "high", anthropicTier: "standard" },
+    sonnetmedium: { spec: "@sonnetmedium", thinking: "medium", anthropicTier: "standard" },
     sonnethigh: { spec: "@sonnethigh", thinking: "high", anthropicTier: "standard" },
-    sonnetfast: { spec: "@sonnethigh", thinking: "high", anthropicTier: "priority" },
-    sonnet55high: { spec: "@sonnet55high", thinking: "high", anthropicTier: "standard" },
-    sonnet55fast: { spec: "@sonnet55high", thinking: "high", anthropicTier: "priority" },
     haikulow: { spec: "@haikulow", thinking: "low", anthropicTier: "standard" },
     haikumedium: { spec: "@haikumedium", thinking: "medium", anthropicTier: "standard" },
-    haikuhigh: { spec: "@haikuhigh", thinking: "high", anthropicTier: "standard" },
-    haikuxhigh: { spec: "@haikuxhigh", thinking: "xhigh", anthropicTier: "standard" },
-    haikumax: { spec: "@haikumax", thinking: "max", anthropicTier: "standard" },
+    solhigh: { spec: "@solhigh", thinking: "high" },
+    astralight: { spec: "@astralight", thinking: "low" },
   };
 
   for (const [name, config] of Object.entries(aliases)) {
