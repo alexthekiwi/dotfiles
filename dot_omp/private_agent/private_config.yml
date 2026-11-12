@@ -25,16 +25,17 @@ modelRoles:
   vision: anthropic/claude-opus-5-5:medium
   opusmedium: anthropic/claude-opus-5-5:medium
   opushigh: anthropic/claude-opus-5-5:high
-  fablehigh: anthropic/claude-fable-5-1:high
+  fablehigh: anthropic/claude-fable-5-2:high
   sonnetmedium: anthropic/claude-sonnet-5-5:medium
   sonnethigh: anthropic/claude-sonnet-5-5:high
   haikulow: anthropic/claude-haiku-5-5:low
   haikumedium: anthropic/claude-haiku-5-5:medium
   solhigh: openai-codex/gpt-6.1-sol:high
+  solmedium: openai-codex/gpt-6.1-sol:medium
   astralight: openai-codex/gpt-6-astra:low
 enabledModels:
   - anthropic/claude-opus-5-5
-  - anthropic/claude-fable-5-1
+  - anthropic/claude-fable-5-2
   - anthropic/claude-sonnet-5-5
   - anthropic/claude-haiku-5-5
   - openai-codex/gpt-6.1-sol
@@ -44,6 +45,7 @@ cycleOrder:
   - opushigh
   - fablehigh
   - haikumedium
+  - solmedium
 statusLine:
   preset: custom
   separator: thin
