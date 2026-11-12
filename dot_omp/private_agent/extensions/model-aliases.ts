@@ -11,7 +11,10 @@ export default function modelAliases(pi) {
     haikulow: { spec: "@haikulow", thinking: "low", anthropicTier: "standard" },
     haikumedium: { spec: "@haikumedium", thinking: "medium", anthropicTier: "standard" },
     solhigh: { spec: "@solhigh", thinking: "high" },
+    solmedium: { spec: "@solmedium", thinking: "medium" },
     astralight: { spec: "@astralight", thinking: "low" },
+    astramedium: { spec: "@astramedium", thinking: "medium" },
+    astrahigh: { spec: "@astrahigh", thinking: "high" },
   };
 
   for (const [name, config] of Object.entries(aliases)) {

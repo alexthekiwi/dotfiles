@@ -127,6 +127,14 @@ The 2026-09-07 audit retired `arrange`, whose instruction body duplicated `layou
 
 `qbit-seed-cleanup preview` is not read-only: it reconciles tracker tags. A request to audit torrents alone does not authorise that write. The skill requires approval before invoking it for inspection. The cleanup keeps `deleteFiles=false` and checks payload retention, but a hardlink count alone does not prove the second link is inside a media library.
 
+## OMP model shortcuts
+
+Model roles and the Ctrl+P cycle live in `~/.omp/agent/config.yml`.
+Slash-command autocomplete is registered separately in
+`~/.omp/agent/extensions/model-aliases.ts`; update both when adding an alias.
+`/solmedium`, `/astramedium`, and `/astrahigh` switch model and thinking effort.
+Restart OMP after changing the extension so the new commands are loaded.
+
 ## Tmux Cheat Sheet
 
 | Action                    | Keys                          |
