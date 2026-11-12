@@ -33,6 +33,8 @@ modelRoles:
   solhigh: openai-codex/gpt-6.1-sol:high
   solmedium: openai-codex/gpt-6.1-sol:medium
   astralight: openai-codex/gpt-6-astra:low
+  astramedium: openai-codex/gpt-6-astra:medium
+  astrahigh: openai-codex/gpt-6-astra:high
 enabledModels:
   - anthropic/claude-opus-5-5
   - anthropic/claude-fable-5-2
@@ -46,6 +48,8 @@ cycleOrder:
   - fablehigh
   - haikumedium
   - solmedium
+  - astramedium
+  - astrahigh
 statusLine:
   preset: custom
   separator: thin
